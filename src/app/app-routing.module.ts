@@ -12,7 +12,7 @@ const routes: Routes =  [
   { path: 'auth', component: AuthComponent},
   { path: 'connexion', component: ConnexionComponent},
   { path: 'accueil', component: AccueilComponent, canActivate: [StatutConnecteService]},
-  { path: '', redirectTo: '/accueil', pathMatch: 'full'}
+  { path: '', redirectTo: '/connexion', pathMatch: 'full'},
 ];
 
 
