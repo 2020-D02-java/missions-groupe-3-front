@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<!-- <div class="jumbotron">
   <h1 class="display-4">Gestion des missions</h1>
   <ng-container *ngIf="collegueConnecte | async as col">
     <div class="lead" *ngIf="!col.estAnonyme()">
@@ -8,10 +8,17 @@
         <li *ngFor="let r of col.roles">{{r}}</li>
       </ul>
       <button  class="btn btn-danger" (click)="seDeconnecter()">Se déconnecter</button>
-
     </div>
   </ng-container>
-</div>
+</div> -->
+<header>
+  <ng-container *ngIf="collegueConnecte | async as col">
+    <div class="lead" *ngIf="!col.estAnonyme()">
+      <app-menu></app-menu>
+    </div>
+  </ng-container>
+</header>
+
 <main class="container">
   <router-outlet></router-outlet>
 </main>
