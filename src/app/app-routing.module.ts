@@ -1,3 +1,4 @@
+import { NaturesDeMissionComponent } from './natures-de-mission/natures-de-mission.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {TechComponent} from './tech/tech.component';
@@ -7,10 +8,12 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 
 
+
 const routes: Routes =  [
   { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService]}, // /tech accessible uniquement si connecté
   { path: 'auth', component: AuthComponent},
   { path: 'connexion', component: ConnexionComponent},
+  { path: 'natures-de-mission', component: NaturesDeMissionComponent},
   { path: 'accueil', component: AccueilComponent, canActivate: [StatutConnecteService]},
   { path: '', redirectTo: '/connexion', pathMatch: 'full'},
 ];

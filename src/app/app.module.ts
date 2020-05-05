@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { MenuComponent } from './menu/menu.component';
+import { NaturesDeMissionComponent } from './natures-de-mission/natures-de-mission.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MenuComponent } from './menu/menu.component';
     TechComponent,
     ConnexionComponent,
     AccueilComponent,
-    MenuComponent
+    MenuComponent,
+    NaturesDeMissionComponent
   ],
   imports: [
     BrowserModule,
