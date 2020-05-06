@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-natures-de-mission',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./natures-de-mission.component.scss']
 })
 export class NaturesDeMissionComponent implements OnInit {
+
+  //Icônes
+  faPencilAlt = faPencilAlt
+  faTrashAlt = faTrashAlt
 
   constructor() { }
 

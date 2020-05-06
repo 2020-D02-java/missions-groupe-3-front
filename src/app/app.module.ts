@@ -10,14 +10,11 @@ import {StatutConnecteService} from './auth/statut-connecte.service';
 import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { MenuComponent } from './menu/menu.component';
-<<<<<<< HEAD
 import { NaturesDeMissionComponent } from './natures-de-mission/natures-de-mission.component';
-=======
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
->>>>>>> f5ebc81c6e8317b72695e1536500fe2b0dd2b43d
 
 
 @NgModule({
