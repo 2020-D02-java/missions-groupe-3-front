@@ -13,7 +13,11 @@ import {FormsModule} from '@angular/forms';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { MenuComponent } from './menu/menu.component';
+<<<<<<< HEAD
 import { NaturesDeMissionComponent } from './natures-de-mission/natures-de-mission.component';
+=======
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+>>>>>>> f5ebc81c6e8317b72695e1536500fe2b0dd2b43d
 
 
 @NgModule({
@@ -30,7 +34,8 @@ import { NaturesDeMissionComponent } from './natures-de-mission/natures-de-missi
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
