@@ -1,9 +1,12 @@
 .navigation {
   display: flex;
   justify-content: space-between;
+  margin: 0px;
+  width: 100%;
 
   .disconnect {
     text-align: center;
+    margin-right: 3rem;
   }
 
 }
