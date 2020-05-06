@@ -1,0 +1,66 @@
+<div class="card text-center">
+    <h2 class="card-title">Demande de mission</h2>
+    <div class="card-body">
+        <form>
+            <div class="form-group row">
+                <label for="dateDebut" class="col-6 offset-md-3 col-md-3 col-form-label">Date de début : </label>
+                <div class="col-6 col-md-3">
+                    <input type="date" id="dateDebut" name="dateDebut" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="dateFin" class="col-6 offset-md-3 col-md-3 col-form-label">Date de fin : </label>
+                <div class="col-6 col-md-3">
+                    <input type="date" id="dateFin" name="dateFin" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="nature" class="col-6 offset-md-3 col-md-3 col-form-label">Nature : </label>
+                <div class="col-6 col-md-3">
+                    <select name="nature" id="nature">
+                        <option value="">Choisissez une nature</option>
+                        <option value="conseil">Conseil</option>
+                        <option value="expertise_technique">Expertise technique</option>
+                        <option value="formation">Formation</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="villeDepart" class="col-6 offset-md-3 col-md-3 col-form-label">Ville de départ : </label>
+                <div class="col-6 col-md-3">
+                    <input type="text" id="villeDepart" name="villeDepart" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="villeArrive" class="col-6 offset-md-3 col-md-3 col-form-label">Ville d'arrivée : </label>
+                <div class="col-6 col-md-3">
+                    <input type="text" id="villeArrivee" name="villeArrivee" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="transport" class="col-6 offset-md-3 col-md-3 col-form-label">Transport : </label>
+                <div class="col-6 col-md-3">
+                    <select name="transport" id="transport">
+                        <option value="">Choisissez un transport</option>
+                        <option value="avion">Avion</option>
+                        <option value="covoiturage">Covoiturage</option>
+                        <option value="train">Train</option>
+                        <option value="voiture_service">Voiture de service</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-6  offset-md-3 col-md-3 col-form-label">Estimation prime : </label>
+                <div class="col-6 col-md-3">0€</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-6  offset-md-3 col-md-3">
+                    <button type="button" class="btn btn-danger">Annuler</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button type="button" class="btn btn-primary">Valider</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
