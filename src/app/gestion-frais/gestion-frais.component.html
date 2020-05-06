@@ -13,45 +13,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>22/05/2017</td>
-      <td>26/05/2017</td>
-      <td>Conseil</td>
-      <td>Nantes</td>
-      <td>Lyon</td>
-      <td>Avion</td>
-      <td>0 €</td>
+    <tr *ngFor = "let note of notefrais">
+      <td >{{note.dateDebut}}</td>
+      <td>{{note.dateFin}}</td>
+      <td>{{note.nature}}</td>
+      <td>{{note.depart}}</td>
+      <td>{{note.arrivee}}</td>
+      <td>{{note.transport}}</td>
+      <td>{{note.frais}}</td>
       <td>(pdf)</td>
-    </tr>
-    <tr>
-      <td>02/10/2017</td>
-      <td>06/10/2017</td>
-      <td>Formation</td>
-      <td>Nantes</td>
-      <td>Rennes</td>
-      <td>Covoiturage</td>
-      <td>0 €</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>13/11/2017</td>
-      <td>17/11/2017</td>
-      <td>Expertise technique</td>
-      <td>Nantes</td>
-      <td>Nantes</td>
-      <td>Voiture de service</td>
-      <td>0 €</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>02/01/2018</td>
-      <td>12/01/2018</td>
-      <td>Conseil</td>
-      <td>Lyon</td>
-      <td>Montpellier</td>
-      <td>Voiture de service</td>
-      <td>0 €</td>
-      <td></td>
     </tr>
   </tbody>
 </table>

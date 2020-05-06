@@ -25,7 +25,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ConnexionComponent,
     AccueilComponent,
     MenuComponent,
-    GestionFraisComponent
+    GestionFraisComponent,
   ],
   imports: [
     BrowserModule,
