@@ -2,26 +2,36 @@
   <nav class="navbar navbar-expand navbar-light bg-light">
     <a class="navbar-brand" routerLink="/accueil">Accueil</a>
     <ul class="navbar-nav">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="#">Gestions des missions<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="#">Planning des missions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Primes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Saisie note de frais</a>
+      </li>
+      <div class="lead" *ngIf="manager">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Validation des missions</a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Primes</a>
+      </div>
+      <div class="lead" *ngIf="admin">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Natures de mission</a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Saisie note de frais</a>
-        </li>
-      </ul>
-    </nav>
-        <div class="disconnect">
-          <ng-container *ngIf="collegueConnecte | async as col">
-            <div class="lead" *ngIf="!col.estAnonyme()">
-              <p  >Utilisateur connecté : {{col.email}}</p>
-              <button  class="btn btn-danger btn-sm" (click)="seDeconnecter()">Se déconnecter</button>
-            </div>
-          </ng-container>
-        </div>
+      </div>
+    </ul>
+  </nav>
+  <div class="disconnect">
+    <ng-container *ngIf="collegueConnecte | async as col">
+      <div class="lead" *ngIf="!col.estAnonyme()">
+        <p>Bonjour : {{col.nom}}</p>
+        <button class="btn btn-danger btn-sm" (click)="seDeconnecter()">Se déconnecter</button>
+      </div>
+    </ng-container>
   </div>
+</div>
