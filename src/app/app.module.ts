@@ -14,6 +14,8 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { MenuComponent } from './menu/menu.component';
 import { MissionDemandeComponent } from './mission-demande/mission-demande.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { MissionDemandeComponent } from './mission-demande/mission-demande.compo
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule,
+    NgbModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
