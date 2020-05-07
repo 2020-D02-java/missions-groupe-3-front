@@ -22,7 +22,7 @@ export class GestionFraisComponent implements OnInit {
   ngOnInit(): void {
     this.gestionFraisService.requestGetFrais().subscribe
     (data => { this.notefrais = data;
-     console.log(data)
+      console.log(this.notefrais);
    }, (erreur: HttpErrorResponse) => console.log(`Erreur: ${erreur}`))};
 }
 
