@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Mission } from '../models/Mission';
-import { DataMissionService } from '../data-mission.service';
+import { DataMissionService } from '../services/data-mission.service';
 
 @Component({
   selector: 'app-mission-demande',
@@ -19,6 +19,7 @@ export class MissionDemandeComponent implements OnInit {
   erreur_date_debut_non_travaille: boolean = false;
   erreur_date_fin_non_travaille: boolean = false;
   erreur_chevauchement: boolean = false;
+  validation: boolean = false;
 
   ngOnInit(): void {
   }
@@ -73,10 +74,11 @@ export class MissionDemandeComponent implements OnInit {
       if(data == false){
         this.erreur_chevauchement = true;
         this.erreur = true;
-      }else {
+      }else if (data == true){
         if (!this.erreur){//si il n'y a pas d'erreurs le statut est a initiale et on peut l'insérer en base
           this.mission.statut="INITIALE";
-          console.log("validation");
+          this.dataMissionService.creerMission(this.mission);
+          this.validation = true;
         }
       }
     });
