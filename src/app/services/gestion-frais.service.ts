@@ -12,15 +12,14 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class GestionFraisService {
 
-  notefrais: NoteDeFrais[];
-
   constructor(private http: HttpClient) { }
 
   /**
    * Récupération d'un flux de liens techniques vers le backend
    */
 
-  requestGetFrais() : Observable<NoteDeFrais[]>{
+  requestGetFrais(): Observable<NoteDeFrais[]> {
      return this.http.get<NoteDeFrais[]>(`${environment.baseUrl}note`);
   }
+
 }

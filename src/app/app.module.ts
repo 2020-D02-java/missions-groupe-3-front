@@ -15,6 +15,7 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { MenuComponent } from './menu/menu.component';
 import { GestionFraisComponent } from './gestion-frais/gestion-frais.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AjouterFraisComponent } from './ajouter-frais/ajouter-frais.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AccueilComponent,
     MenuComponent,
     GestionFraisComponent,
+    AjouterFraisComponent,
   ],
   imports: [
     BrowserModule,
