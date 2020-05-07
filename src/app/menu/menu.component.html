@@ -1,34 +1,5 @@
 <div class="navigation">
-  <nav class="navbar navbar-expand-md navbar-light justify-content-start" id="navbar">
-    <a class="navbar-brand" routerLink="/accueil">Accueil</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="#navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <ul class="collapse navbar-collapse align-items-start navbar-nav" id="navbarNavAltMarkup">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/accueil">Gestions des missions<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/accueil">Planning des missions</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/accueil">Primes</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/accueil">Saisie note de frais</a>
-      </li>
-      <div class="lead" *ngIf="manager">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/accueil">Validation des missions</a>
-        </li>
-      </div>
-      <div class="lead" *ngIf="admin">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/accueil">Natures de mission</a>
-        </li>
-      </div>
-    </ul>
-  </nav>
+  <app-collapse-navbar></app-collapse-navbar>
   <div class="disconnect justify-content-end">
     <ng-container *ngIf="collegueConnecte | async as col">
       <div class="lead" *ngIf="!col.estAnonyme()">
