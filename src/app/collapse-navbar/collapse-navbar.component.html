@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-md navbar-light justify-content-start" id="navbar">
+  <a class="navbar-brand" routerLink="/accueil">Accueil</a>
+  <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+    <ul class="align-items-start navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/accueil" (click)="isMenuCollapsed = true">Gestions des missions<span
+            class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/accueil" (click)="isMenuCollapsed = true">Planning des missions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/accueil" (click)="isMenuCollapsed = true">Primes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/accueil" (click)="isMenuCollapsed = true">Saisie note de frais</a>
+      </li>
+      <div class="lead" *ngIf="manager">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/accueil" (click)="isMenuCollapsed = true">Validation des missions</a>
+        </li>
+      </div>
+      <div class="lead" *ngIf="admin">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/accueil" (click)="isMenuCollapsed = true">Natures de mission</a>
+        </li>
+      </div>
+    </ul>
+  </div>
+</nav>
