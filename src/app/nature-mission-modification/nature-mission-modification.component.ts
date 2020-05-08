@@ -1,3 +1,4 @@
+import { Nature } from './../models/Nature';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nature-mission-modification.component.scss']
 })
 export class NatureMissionModificationComponent implements OnInit {
+
+  nature:Nature = new Nature("", undefined, "", undefined, "", "", undefined, null, null)
 
   constructor() { }
 
