@@ -1,0 +1,71 @@
+<div>
+    <h3>Modification d'une nature de mission</h3>
+  <form>
+    <!-- Nature -->
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="natureMission">Nature</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="natureMission">
+          </div>
+        </div>
+      </div>
+      <div class="col-6"></div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <!-- Facturée -->
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="facturee">Facturée</label>
+          <div class="col-sm-10">
+            <select class="form-control custom-select" id="facturee">
+              <option selected>Choisir</option>
+              <option value="oui">OUI</option>
+              <option value="non">NON</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <!-- TJM -->
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="tjm">TJM (€)</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="tjm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <!-- Prime -->
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="prime">Versement de prime</label>
+          <div class="col-sm-10">
+            <select class="form-control custom-select" id="Prime">
+              <option selected>Choisir</option>
+              <option value="oui">OUI</option>
+              <option value="non">NON</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <!-- % Prime -->
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label" for="%prime">% Prime</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="%prime">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="button">
+      <button type="submit" class="btn btn-success">Valider</button>
+      <!-- Reset le form -->
+      <button class="btn btn-danger">Annuler</button>
+    </div>
+  </form>
+</div>

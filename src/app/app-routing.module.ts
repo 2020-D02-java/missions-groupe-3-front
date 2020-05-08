@@ -1,3 +1,4 @@
+import { NatureMissionModificationComponent } from './nature-mission-modification/nature-mission-modification.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {TechComponent} from './tech/tech.component';
@@ -11,6 +12,7 @@ const routes: Routes =  [
   { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService]}, // /tech accessible uniquement si connecté
   { path: 'auth', component: AuthComponent},
   { path: 'connexion', component: ConnexionComponent},
+  { path: 'nature-mission-modification', component: NatureMissionModificationComponent},
   { path: 'accueil', component: AccueilComponent, canActivate: [StatutConnecteService]},
   { path: '', redirectTo: '/connexion', pathMatch: 'full'},
 ];

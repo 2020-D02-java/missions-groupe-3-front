@@ -16,6 +16,7 @@ import { MenuComponent } from './menu/menu.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.component';
+import { NatureMissionModificationComponent } from './nature-mission-modification/nature-mission-modification.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.compo
     ConnexionComponent,
     AccueilComponent,
     MenuComponent,
-    CollapseNavbarComponent
+    CollapseNavbarComponent,
+    NatureMissionModificationComponent
   ],
   imports: [
     BrowserModule,
