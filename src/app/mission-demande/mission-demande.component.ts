@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Mission } from '../models/Mission';
 import { DataMissionService } from '../services/data-mission.service';
+import { AuthService } from './../auth/auth.service';
+import { Observable } from 'rxjs';
+import { Collegue } from '../auth/auth.domains';
+import { Nature } from '../models/Nature';
+import { NatureService } from '../services/nature.service';
 
 @Component({
   selector: 'app-mission-demande',
@@ -9,9 +14,12 @@ import { DataMissionService } from '../services/data-mission.service';
 })
 export class MissionDemandeComponent implements OnInit {
 
-  constructor(private dataMissionService: DataMissionService) { }
+  constructor(private authSrv: AuthService, private dataMissionService: DataMissionService, private natureService: NatureService) { }
 
-  mission: Mission = new Mission(null, null, '', '', '', '', '');
+  collegueConnecte: Observable<Collegue>;
+  collegue: Collegue;
+  natures: Nature[];
+  mission: Mission = new Mission(null, null, '', '', '', '', '', '');
   erreur: boolean = false;
   erreur_date_debut: boolean = false;
   erreur_date_fin: boolean = false;
@@ -20,16 +28,31 @@ export class MissionDemandeComponent implements OnInit {
   erreur_date_fin_non_travaille: boolean = false;
   erreur_chevauchement: boolean = false;
   validation: boolean = false;
+  collegue_non_trouve: boolean = false;
 
   ngOnInit(): void {
+    this.collegueConnecte = this.authSrv.collegueConnecteObs;
+    this.collegueConnecte.subscribe(data => this.collegue = data);
+    this.natureService.abonnementNatures().subscribe(data => this.natures = data);
+    this.natureService.loadNatures();
   }
 
   annuler(){
-    this.mission = new Mission(null, null, '', '', '', '','');
+    this.mission = new Mission(null, null, '', '', '', '','', '');
+    this.erreur = false;
+    this.erreur_date_debut = false;
+    this.erreur_date_fin = false;
+    this.erreur_avion = false;
+    this.erreur_date_debut_non_travaille  = false;
+    this.erreur_date_fin_non_travaille  = false;
+    this.erreur_chevauchement = false;
+    this.collegue_non_trouve = false;
   }
 
   valider(){
+    this.validation = false;
     this.erreur = false;
+    this.collegue_non_trouve = false;
     //la date de debut doit etre superieure a la date du jour
     if (this.mission.date_debut != null && new Date(this.mission.date_debut) > new Date()){
       this.erreur_date_debut = false;
@@ -38,7 +61,7 @@ export class MissionDemandeComponent implements OnInit {
       this.erreur = true;
     }
     //la date de fin doit etre superieure a la date de debut
-    if (this.mission.date_fin != null && new Date(this.mission.date_fin) > new Date(this.mission.date_debut)){
+    if (this.mission.date_fin != null && new Date(this.mission.date_fin) >= new Date(this.mission.date_debut)){
       this.erreur_date_fin = false;
     }else{
       this.erreur_date_fin = true;
@@ -71,18 +94,31 @@ export class MissionDemandeComponent implements OnInit {
     //verifie si une autre mission n'est pas sur le créneau définit
     this.dataMissionService.abonnementDisponibiliteMission()
     .subscribe(data => {
-      if(data == false){
+      if(data == "false"){
         this.erreur_chevauchement = true;
         this.erreur = true;
-      }else if (data == true){
+      }else if (data == "true"){
+        this.erreur_chevauchement = false;
         if (!this.erreur){//si il n'y a pas d'erreurs le statut est a initiale et on peut l'insérer en base
-          this.mission.statut="INITIALE";
+          this.mission.statut="Initiale";
+          this.mission.collegue_email = this.collegue.email;
           this.dataMissionService.creerMission(this.mission);
-          this.validation = true;
+          this.dataMissionService.abonnementMissionCree().subscribe(data=>{
+            let chaine: string = data.valueOf();
+            if (chaine == "cree"){
+              this.validation = true;
+              setTimeout(() => {this.validation = false }, 5000);
+            this.mission = new Mission(null, null, '', '', '', '','', '');
+            }else if (chaine == "erreur:404"){
+              this.collegue_non_trouve = true;
+            }
+          });
         }
+      }else if (data == "erreur:404"){
+        this.collegue_non_trouve = true;
       }
     });
-    this.dataMissionService.verifierDisponibilite(this.mission.date_debut, this.mission.date_fin);
+    this.dataMissionService.verifierDisponibilite(this.mission.date_debut, this.mission.date_fin, this.collegue.email);
     
   }
 }
