@@ -17,6 +17,8 @@ import { MissionDemandeComponent } from './mission-demande/mission-demande.compo
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.component';
+import { MissionsVisualisationComponent } from './missions-visualisation/missions-visualisation.component';
+import { MissionsModificationComponent } from './missions-modification/missions-modification.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.compo
     AccueilComponent,
     MenuComponent,
     MissionDemandeComponent,
-    CollapseNavbarComponent
+    CollapseNavbarComponent,
+    MissionsVisualisationComponent,
+    MissionsModificationComponent
   ],
   imports: [
     BrowserModule,
