@@ -6,6 +6,8 @@ import {AuthComponent} from './auth/auth.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { MissionDemandeComponent } from './mission-demande/mission-demande.component';
+import { MissionsVisualisationComponent } from './missions-visualisation/missions-visualisation.component';
+import { MissionsModificationComponent } from './missions-modification/missions-modification.component';
 
 
 const routes: Routes =  [
@@ -14,6 +16,8 @@ const routes: Routes =  [
   { path: 'connexion', component: ConnexionComponent},
   { path: 'accueil', component: AccueilComponent, canActivate: [StatutConnecteService]},
   { path: 'mission_demande', component: MissionDemandeComponent, canActivate: [StatutConnecteService]},
+  { path: 'missions_visualisation', component: MissionsVisualisationComponent, canActivate: [StatutConnecteService]},
+  { path: 'mission_modification', component: MissionsModificationComponent, canActivate: [StatutConnecteService]},
   { path: '', redirectTo: '/connexion', pathMatch: 'full'},
 ];
 

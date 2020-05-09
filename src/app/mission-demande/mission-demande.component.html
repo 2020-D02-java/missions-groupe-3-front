@@ -46,7 +46,7 @@
                 <label for="villeArrive" class="col-6 offset-md-3 col-md-3 col-form-label">Ville d'arrivée : </label>
                 <div class="col-6 col-md-3">
                     <input type="text" id="villeArrivee" name="villeArrivee" #etatVilleArrivee="ngModel"
-                        [(ngModel)]="mission.ville_arrivee" />
+                        [(ngModel)]="mission.ville_arrive" />
                 </div>
             </div>
             <div class="form-group row">
@@ -72,7 +72,7 @@
             <small class="offset-md-3 col-md-7 green" *ngIf="validation">La mission a été créée</small>
             <div class="form-group row">
                 <div class="col-6  offset-md-3 col-md-3">
-                    <button type="button" class="btn btn-danger" (click)="annuler()">Annuler</button>
+                    <button type="button" class="btn btn-danger" routerLink="/missions_visualisation" (click)="annuler()">Annuler</button>
                 </div>
                 <div class="col-6 col-md-3">
                     <button type="button" class="btn btn-primary" (click)="valider()">Valider</button>

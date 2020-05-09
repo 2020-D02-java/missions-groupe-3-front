@@ -12,6 +12,9 @@ export class DataMissionService {
 
   disponibiliteMission = new Subject<string>();
   missionCree = new Subject<string>();
+  missions = new Subject<Mission[]>();
+  mission: Mission;
+  delete = new Subject<string>();
 
   constructor(private _http: HttpClient) { }
 
@@ -39,7 +42,6 @@ export class DataMissionService {
 
   creerMission(mission: Mission){
     this._http.post<Mission>(environment.baseUrl + "missions" , mission).subscribe((data:Mission)=> {
-      console.log("Mission créé");
       this.missionCree.next("cree")
     }, (error:any) => {
       console.log(error);
@@ -50,4 +52,25 @@ export class DataMissionService {
   abonnementMissionCree(): Observable<string> {
     return this.missionCree.asObservable();
   }
+
+  chargerMissions(email: string){
+    this._http.get<Mission[]>(environment.baseUrl + "missions/collegue?email="+email ).subscribe((data:Mission[])=> {
+      this.missions.next(data);
+    }, (error:any) => {
+      console.log(error);
+    });
+  }
+
+  abonnementMissions(): Observable<Mission[]> {
+    return this.missions.asObservable();
+  }
+
+  deleteMission(mission: Mission, email: String){
+    this._http.request<string>('delete',environment.baseUrl + "missions/delete?email="+email+"&date_debut="+mission.date_debut+"&date_fin="+mission.date_fin ).subscribe((data:string)=> {
+      this.delete.next(data);
+    }, (error:any) => {
+      console.log(error);
+    });
+  }
+
 }
