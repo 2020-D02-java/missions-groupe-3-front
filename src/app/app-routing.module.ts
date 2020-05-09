@@ -5,6 +5,7 @@ import {StatutConnecteService} from './auth/statut-connecte.service';
 import {AuthComponent} from './auth/auth.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
+import { MissionDemandeComponent } from './mission-demande/mission-demande.component';
 
 
 const routes: Routes =  [
@@ -12,6 +13,7 @@ const routes: Routes =  [
   { path: 'auth', component: AuthComponent},
   { path: 'connexion', component: ConnexionComponent},
   { path: 'accueil', component: AccueilComponent, canActivate: [StatutConnecteService]},
+  { path: 'mission_demande', component: MissionDemandeComponent, canActivate: [StatutConnecteService]},
   { path: '', redirectTo: '/connexion', pathMatch: 'full'},
 ];
 

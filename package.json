@@ -4,7 +4,6 @@
   "scripts": {
     "start": "ng serve",
     "ng": "ng",
-    "start": "ng serve",
     "build": "cross-var ng build --prod --base-href https://$GH_ORG.github.io/$APP_REPO/",
     "test": "ng test",
     "lint": "ng lint",

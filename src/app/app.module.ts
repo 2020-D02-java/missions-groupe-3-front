@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { MenuComponent } from './menu/menu.component';
+import { MissionDemandeComponent } from './mission-demande/mission-demande.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.component';
@@ -26,6 +27,7 @@ import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.compo
     ConnexionComponent,
     AccueilComponent,
     MenuComponent,
+    MissionDemandeComponent,
     CollapseNavbarComponent
   ],
   imports: [
