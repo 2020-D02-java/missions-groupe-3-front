@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NatureService } from './nature.service';
+import { NatureService } from './natureDto.service';
 
 describe('NatureService', () => {
   let service: NatureService;
