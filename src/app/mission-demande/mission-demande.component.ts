@@ -4,8 +4,8 @@ import { DataMissionService } from '../services/data-mission.service';
 import { AuthService } from './../auth/auth.service';
 import { Observable } from 'rxjs';
 import { Collegue } from '../auth/auth.domains';
-import { Nature } from '../models/Nature';
-import { NatureService } from '../services/nature.service';
+import { Nature } from '../models/NatureDto';
+import { NatureService } from '../services/natureDto.service';
 
 @Component({
   selector: 'app-mission-demande',
