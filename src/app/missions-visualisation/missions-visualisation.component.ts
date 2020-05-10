@@ -48,13 +48,13 @@ export class MissionsVisualisationComponent implements OnInit {
   }
 
   trierDateDebut(){
-    
+    this.missionService.chargerMissionsDateDebut(this.collegue.email, this.sortDateDebut);
     if (this.sortDateDebut == false){this.sortDateDebut = true}
     else if (this.sortDateDebut == true){this.sortDateDebut = false}
   }
 
   trierDateFin(){
-
+    this.missionService.chargerMissionsDateFin(this.collegue.email, this.sortDateFin);
     if (this.sortDateFin == false){this.sortDateFin = true}
     else if (this.sortDateFin == true){this.sortDateFin = false}
   }
