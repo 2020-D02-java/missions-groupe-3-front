@@ -84,4 +84,20 @@ export class DataMissionService {
     });
   }
 
+  chargerMissionsDateDebut(email: string, tri: boolean){
+    this._http.get<Mission[]>(environment.baseUrl + "missions/triDateDebut?email=" + email + "&tri=" +tri).subscribe((data:Mission[])=> {
+      this.missions.next(data);
+    }, (error:any) => {
+      console.log(error);
+    });
+  }
+
+  chargerMissionsDateFin(email: string, tri: boolean){
+    this._http.get<Mission[]>(environment.baseUrl + "missions/triDateFin?email=" + email + "&tri=" +tri).subscribe((data:Mission[])=> {
+      this.missions.next(data);
+    }, (error:any) => {
+      console.log(error);
+    });
+  }
+
 }
