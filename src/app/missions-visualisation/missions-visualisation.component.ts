@@ -22,6 +22,10 @@ export class MissionsVisualisationComponent implements OnInit {
   faPencilAlt = faPencilAlt
   faTrashAlt = faTrashAlt
 
+  //trier par dates
+  sortDateDebut = false;
+  sortDateFin = false;
+
   constructor(private authSrv: AuthService, private missionService: DataMissionService, private router: Router) { }
 
   ngOnInit(): void {
@@ -41,6 +45,18 @@ export class MissionsVisualisationComponent implements OnInit {
       this.missionService.chargerMissions(this.collegue.email);
     });
     this.missionService.deleteMission(mission);
+  }
+
+  trierDateDebut(){
+    
+    if (this.sortDateDebut == false){this.sortDateDebut = true}
+    else if (this.sortDateDebut == true){this.sortDateDebut = false}
+  }
+
+  trierDateFin(){
+
+    if (this.sortDateFin == false){this.sortDateFin = true}
+    else if (this.sortDateFin == true){this.sortDateFin = false}
   }
 
 }

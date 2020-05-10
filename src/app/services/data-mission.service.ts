@@ -75,8 +75,9 @@ export class DataMissionService {
   }
 
   modifierMission(mission: Mission) {
-    console.log("modification");
+    console.log("modification "+mission.id);
     this._http.patch<string>(environment.baseUrl + "missions", mission).subscribe((data:string)=> {
+      console.log("requete modification : ok");
       this.missionModifiee.next(data);
     }, (error:any) => {
       console.log(error);
