@@ -1,9 +1,15 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+</head>
 <h3 align="center">Visualisation des missions</h3>
 <table mdbTable class="z-depth-1" align="center">
   <thead>
     <tr >
-      <th width="150" align="center">Date de début</th>
-      <th width="150" align="center">Date de fin</th>
+      <th width="150" align="center">Date de début 
+          <a (click) = "trierDateDebut()"><i class="fas fa-arrows-alt-v"></i></a></th>
+      <th width="150" align="center">Date de fin
+        <a (click) = "trierDateFin()"><i class="fas fa-arrows-alt-v"></i></a>
+      </th>
       <th width="100" align="center">Nature</th>
       <th width="100" align="center">Départ</th>
       <th width="100" align="center">Arrivée</th>
@@ -14,8 +20,8 @@
   </thead>
   <tbody>
     <tr *ngFor = "let mission of missions">
-      <td >{{mission.date_debut}}</td>
-      <td>{{mission.date_fin}}</td>
+      <td >{{mission.date_debut | date : 'dd-MM-yyyy'}}</td>
+      <td>{{mission.date_fin | date : 'dd-MM-yyyy'}}</td>
       <td>{{mission.nature}}</td>
       <td>{{mission.ville_depart}}</td>
       <td>{{mission.ville_arrive}}</td>

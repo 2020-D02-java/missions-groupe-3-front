@@ -13,14 +13,15 @@ export class DataMissionService {
   disponibiliteMission = new Subject<string>();
   missionCree = new Subject<string>();
   missions = new Subject<Mission[]>();
+  missionModifiee = new Subject<string>();
   mission: Mission;
   delete = new Subject<string>();
 
   constructor(private _http: HttpClient) { }
 
   
-  verifierDisponibilite(debut: Date, fin: Date, email: string) {
-    this._http.get(environment.baseUrl + "missions/disponibilite?start=" + debut + "&end=" + fin + "&email=" + email).subscribe((data: string) => {
+  verifierDisponibilite(debut: Date, fin: Date, email: string, missionId: number) {
+    this._http.get(environment.baseUrl + "missions/disponibilite?start=" + debut + "&end=" + fin + "&email=" + email + "&exception=" + missionId).subscribe((data: string) => {
       let chaine: string = data.valueOf().toString();
       if (chaine == "true"){
         this.disponibiliteMission.next("true");
@@ -65,9 +66,19 @@ export class DataMissionService {
     return this.missions.asObservable();
   }
 
-  deleteMission(mission: Mission, email: String){
-    this._http.request<string>('delete',environment.baseUrl + "missions/delete?email="+email+"&date_debut="+mission.date_debut+"&date_fin="+mission.date_fin ).subscribe((data:string)=> {
+  deleteMission(mission: Mission){
+    this._http.request<string>('delete',environment.baseUrl + "missions/delete?id=" + mission.id).subscribe((data:string)=> {
       this.delete.next(data);
+    }, (error:any) => {
+      console.log(error);
+    });
+  }
+
+  modifierMission(mission: Mission) {
+    console.log("modification "+mission.id);
+    this._http.patch<string>(environment.baseUrl + "missions", mission).subscribe((data:string)=> {
+      console.log("requete modification : ok");
+      this.missionModifiee.next(data);
     }, (error:any) => {
       console.log(error);
     });

@@ -19,7 +19,7 @@ export class MissionDemandeComponent implements OnInit {
   collegueConnecte: Observable<Collegue>;
   collegue: Collegue;
   natures: Nature[];
-  mission: Mission = new Mission(null, null, '', '', '', '', '', '');
+  mission: Mission = new Mission(null, null, null, null, '', '', '', '', '', '');
   erreur: boolean = false;
   erreur_date_debut: boolean = false;
   erreur_date_fin: boolean = false;
@@ -38,7 +38,7 @@ export class MissionDemandeComponent implements OnInit {
   }
 
   annuler(){
-    this.mission = new Mission(null, null, '', '', '', '','', '');
+    this.mission = new Mission(null, null, null, null, '', '', '', '','', '');
     this.erreur = false;
     this.erreur_date_debut = false;
     this.erreur_date_fin = false;
@@ -49,7 +49,7 @@ export class MissionDemandeComponent implements OnInit {
     this.collegue_non_trouve = false;
   }
 
-  valider(){
+  validerCreation(){
     this.validation = false;
     this.erreur = false;
     this.collegue_non_trouve = false;
@@ -108,7 +108,7 @@ export class MissionDemandeComponent implements OnInit {
             if (chaine == "cree"){
               this.validation = true;
               setTimeout(() => {this.validation = false }, 5000);
-            this.mission = new Mission(null, null, '', '', '', '','', '');
+            this.mission = new Mission(null, null, null, null, '', '', '', '','', '');
             }else if (chaine == "erreur:404"){
               this.collegue_non_trouve = true;
             }
@@ -118,7 +118,7 @@ export class MissionDemandeComponent implements OnInit {
         this.collegue_non_trouve = true;
       }
     });
-    this.dataMissionService.verifierDisponibilite(this.mission.date_debut, this.mission.date_fin, this.collegue.email);
+    this.dataMissionService.verifierDisponibilite(this.mission.date_debut, this.mission.date_fin, this.collegue.email, -1);
     
   }
 }

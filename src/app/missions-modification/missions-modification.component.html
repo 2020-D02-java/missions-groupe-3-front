@@ -1,2 +1,83 @@
-<p>missions-modification works!</p>
-<p>date de debut de la mission: {{mission.date_debut}}</p>
+<div class="card text-center">
+    <h2 class="card-title">Modification d'une mission</h2>
+    <div class="card-body">
+        <form id="form">
+            <div class="form-group row">
+                <label for="dateDebut" class="col-6 offset-md-3 col-md-3 col-form-label">Date de début : </label>
+                <div class="col-6 col-md-3">
+                    <input type="date" id="dateDebut" name="dateDebut" #etatDateDebut="ngModel"
+                        [(ngModel)]="mission.date_debut" />
+                </div>
+                <small class="offset-md-3 col-md-7" *ngIf="erreur_date_debut">la date de début doit etre remplie et être
+                    supérieure à la date du jour</small>
+                <small class="offset-md-3 col-md-7" *ngIf="erreur_avion">la date de début doit etre être supérieure de 7
+                    jours à la date du jour avec le transport par avion</small>
+                <small class="offset-md-3 col-md-7" *ngIf="erreur_date_debut_non_travaille">la date de début ne doit pas
+                    être défini sur un jour non travaillé</small>
+            </div>
+            <div class="form-group row">
+                <label for="dateFin" class="col-6 offset-md-3 col-md-3 col-form-label">Date de fin : </label>
+                <div class="col-6 col-md-3">
+                    <input type="date" id="dateFin" name="dateFin" #etatDateFin="ngModel"
+                        [(ngModel)]="mission.date_fin" />
+                </div>
+                <small class="offset-md-3 col-md-7" *ngIf="erreur_date_fin">la date de de fin doit être supérieure à la
+                    date de début</small>
+                <small class="offset-md-3 col-md-7" *ngIf="erreur_date_fin_non_travaille">la date de fin ne doit pas
+                    être défini sur un jour non travaillé</small>
+            </div>
+            <div class="form-group row">
+                <label for="nature" class="col-6 offset-md-3 col-md-3 col-form-label">Nature : </label>
+                <div class="col-6 col-md-3">
+                    <select name="nature" id="nature" #etatNature="ngModel" [(ngModel)]="mission.nature">
+                        <option value="">Choisissez une nature</option>
+                        <option *ngFor = "let nature of natures" value="{{nature.nom}}">{{nature.nom}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="villeDepart" class="col-6 offset-md-3 col-md-3 col-form-label">Ville de départ : </label>
+                <div class="col-6 col-md-3">
+                    <input type="text" id="villeDepart" name="villeDepart" #etatVilleDepart="ngModel"
+                        [(ngModel)]="mission.ville_depart" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="villeArrive" class="col-6 offset-md-3 col-md-3 col-form-label">Ville d'arrivée : </label>
+                <div class="col-6 col-md-3">
+                    <input type="text" id="villeArrivee" name="villeArrivee" #etatVilleArrivee="ngModel"
+                        [(ngModel)]="mission.ville_arrive" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="transport" class="col-6 offset-md-3 col-md-3 col-form-label">Transport : </label>
+                <div class="col-6 col-md-3">
+                    <select name="transport" id="transport" #etatTransport="ngModel" [(ngModel)]="mission.transport">
+                        <option value="">Choisissez un transport</option>
+                        <option value="avion">Avion</option>
+                        <option value="covoiturage">Covoiturage</option>
+                        <option value="train">Train</option>
+                        <option value="voiture_service">Voiture de service</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-6  offset-md-3 col-md-3 col-form-label">Estimation prime : </label>
+                <div class="col-6 col-md-3">0€</div>
+            </div>
+            <small class="offset-md-3 col-md-7" *ngIf="erreur_chevauchement">Erreur : la mission demandée chevauche une
+                autre mission</small>
+            <small class="offset-md-3 col-md-7" *ngIf="collegue_non_trouve">Erreur : le collègue ou la mission n'ont pas été
+                trouvés</small>
+            <small class="offset-md-3 col-md-7 green" *ngIf="validation">La mission a été modifiée</small>
+            <div class="form-group row">
+                <div class="col-6  offset-md-3 col-md-3">
+                    <button type="button" class="btn btn-danger" routerLink="/missions_visualisation" (click)="annuler()">Annuler</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button type="button" class="btn btn-primary" (click)="valider()">Valider</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
