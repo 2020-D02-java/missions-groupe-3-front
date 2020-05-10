@@ -40,7 +40,7 @@ export class MissionsVisualisationComponent implements OnInit {
     this.missionService.delete.asObservable().subscribe(data => {
       this.missionService.chargerMissions(this.collegue.email);
     });
-    this.missionService.deleteMission(mission, this.collegue.email);
+    this.missionService.deleteMission(mission);
   }
 
 }
