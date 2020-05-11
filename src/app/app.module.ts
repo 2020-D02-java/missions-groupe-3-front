@@ -13,10 +13,13 @@ import { FormsModule } from '@angular/forms';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { MenuComponent } from './menu/menu.component';
+import { GestionFraisComponent } from './gestion-frais/gestion-frais.component';
 import { MissionDemandeComponent } from './mission-demande/mission-demande.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AjouterFraisComponent } from './saisie-noteFrais/ajouter-frais.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.component';
+import { GestionFraisService } from './services/gestion-frais.service';
 import { MissionsVisualisationComponent } from './missions-visualisation/missions-visualisation.component';
 import { MissionsModificationComponent } from './missions-modification/missions-modification.component';
 import { MissionsManagerComponent } from './missions-manager/missions-manager.component';
@@ -36,6 +39,9 @@ registerLocaleData(localeFr);
     ConnexionComponent,
     AccueilComponent,
     MenuComponent,
+    GestionFraisComponent,
+    AjouterFraisComponent,
+    CollapseNavbarComponent,
     MissionDemandeComponent,
     CollapseNavbarComponent,
     MissionsVisualisationComponent,
@@ -56,7 +62,7 @@ registerLocaleData(localeFr);
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,
     multi: true
-  }],
+  }, GestionFraisService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

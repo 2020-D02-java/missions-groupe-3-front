@@ -4,6 +4,7 @@
 export class BackendLink {
   name: string;
   href: string;
+
   constructor(params: any) {
     Object.assign(this, params);
   }

@@ -5,6 +5,8 @@ import {StatutConnecteService} from './auth/statut-connecte.service';
 import {AuthComponent} from './auth/auth.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
+import { GestionFraisComponent } from './gestion-frais/gestion-frais.component';
+import { AjouterFraisComponent } from './saisie-noteFrais/ajouter-frais.component';
 import { MissionDemandeComponent } from './mission-demande/mission-demande.component';
 import { MissionsVisualisationComponent } from './missions-visualisation/missions-visualisation.component';
 import { MissionsModificationComponent } from './missions-modification/missions-modification.component';
@@ -17,6 +19,8 @@ const routes: Routes =  [
   { path: 'auth', component: AuthComponent},
   { path: 'connexion', component: ConnexionComponent},
   { path: 'accueil', component: AccueilComponent, canActivate: [StatutConnecteService]},
+  { path: 'noteFrais', component: GestionFraisComponent, canActivate: [StatutConnecteService]},
+  { path: 'ajouterNoteFrais/:id', component: AjouterFraisComponent, canActivate: [StatutConnecteService]},
   { path: 'mission_demande', component: MissionDemandeComponent, canActivate: [StatutConnecteService]},
   { path: 'missions_visualisation', component: MissionsVisualisationComponent, canActivate: [StatutConnecteService]},
   { path: 'mission_modification', component: MissionsModificationComponent, canActivate: [StatutConnecteService]},
