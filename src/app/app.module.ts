@@ -14,11 +14,21 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { MenuComponent } from './menu/menu.component';
 import { GestionFraisComponent } from './gestion-frais/gestion-frais.component';
+import { MissionDemandeComponent } from './mission-demande/mission-demande.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AjouterFraisComponent } from './saisie-noteFrais/ajouter-frais.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.component';
 import { GestionFraisService } from './services/gestion-frais.service';
+import { MissionsVisualisationComponent } from './missions-visualisation/missions-visualisation.component';
+import { MissionsModificationComponent } from './missions-modification/missions-modification.component';
+import { MissionsManagerComponent } from './missions-manager/missions-manager.component';
+import { MissionsPlanningComponent } from './missions-planning/missions-planning.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr);
 
 
 @NgModule({
@@ -31,7 +41,13 @@ import { GestionFraisService } from './services/gestion-frais.service';
     MenuComponent,
     GestionFraisComponent,
     AjouterFraisComponent,
-    CollapseNavbarComponent
+    CollapseNavbarComponent,
+    MissionDemandeComponent,
+    CollapseNavbarComponent,
+    MissionsVisualisationComponent,
+    MissionsModificationComponent,
+    MissionsManagerComponent,
+    MissionsPlanningComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +55,8 @@ import { GestionFraisService } from './services/gestion-frais.service';
     HttpClientModule,
     FormsModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    FullCalendarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
