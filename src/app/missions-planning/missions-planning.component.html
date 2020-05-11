@@ -1,0 +1,5 @@
+<h3 align="center">Planning des missions</h3>
+<br/>
+<div *ngIf="loadCalendar">
+<full-calendar defaultView="dayGridMonth" [height]="500" [plugins]="calendarPlugins" [weekends]="false" [locale]="locale" [events]="events"></full-calendar>
+</div>

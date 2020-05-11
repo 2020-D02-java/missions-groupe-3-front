@@ -20,6 +20,12 @@ import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.compo
 import { MissionsVisualisationComponent } from './missions-visualisation/missions-visualisation.component';
 import { MissionsModificationComponent } from './missions-modification/missions-modification.component';
 import { MissionsManagerComponent } from './missions-manager/missions-manager.component';
+import { MissionsPlanningComponent } from './missions-planning/missions-planning.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr);
 
 
 @NgModule({
@@ -34,7 +40,8 @@ import { MissionsManagerComponent } from './missions-manager/missions-manager.co
     CollapseNavbarComponent,
     MissionsVisualisationComponent,
     MissionsModificationComponent,
-    MissionsManagerComponent
+    MissionsManagerComponent,
+    MissionsPlanningComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +49,8 @@ import { MissionsManagerComponent } from './missions-manager/missions-manager.co
     HttpClientModule,
     FormsModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    FullCalendarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
