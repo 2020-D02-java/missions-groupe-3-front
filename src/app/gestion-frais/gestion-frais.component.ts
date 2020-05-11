@@ -13,16 +13,17 @@ export class GestionFraisComponent implements OnInit {
 
   notefrais: NoteDeFrais[];
 
-  //ICONE
+
+  // ICONE
   plusCircleIcon = faPlusCircle;
 
   constructor(private gestionFraisService: GestionFraisService) { }
 
-  //utilisation de la methode requestGetFrais qui communique avec la base
+  // utilisation de la methode requestGetNoteFrais qui communique avec la base
   ngOnInit(): void {
-    this.gestionFraisService.requestGetFrais().subscribe
+    this.gestionFraisService.requestGetNoteFrais().subscribe
     (data => { this.notefrais = data;
-      console.log(this.notefrais);
+               this.notefrais.forEach(value => value.fraisEuros = value.frais / 100);
    }, (erreur: HttpErrorResponse) => console.log(`Erreur: ${erreur}`))};
 }
 

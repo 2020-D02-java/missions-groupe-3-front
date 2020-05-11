@@ -6,7 +6,7 @@ import {AuthComponent} from './auth/auth.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { GestionFraisComponent } from './gestion-frais/gestion-frais.component';
-import { AjouterFraisComponent } from './ajouter-frais/ajouter-frais.component';
+import { AjouterFraisComponent } from './saisie-noteFrais/ajouter-frais.component';
 
 
 const routes: Routes =  [
@@ -15,7 +15,7 @@ const routes: Routes =  [
   { path: 'connexion', component: ConnexionComponent},
   { path: 'accueil', component: AccueilComponent, canActivate: [StatutConnecteService]},
   { path: 'noteFrais', component: GestionFraisComponent, canActivate: [StatutConnecteService]},
-  { path: 'ajouterNoteFrais', component: AjouterFraisComponent, canActivate: [StatutConnecteService]},
+  { path: 'ajouterNoteFrais/:id', component: AjouterFraisComponent, canActivate: [StatutConnecteService]},
   { path: '', redirectTo: '/connexion', pathMatch: 'full'},
 ];
 

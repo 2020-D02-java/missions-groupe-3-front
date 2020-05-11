@@ -15,9 +15,10 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { MenuComponent } from './menu/menu.component';
 import { GestionFraisComponent } from './gestion-frais/gestion-frais.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AjouterFraisComponent } from './ajouter-frais/ajouter-frais.component';
+import { AjouterFraisComponent } from './saisie-noteFrais/ajouter-frais.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.component';
+import { GestionFraisService } from './services/gestion-frais.service';
 
 
 @NgModule({
@@ -44,7 +45,7 @@ import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.compo
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,
     multi: true
-  }],
+  }, GestionFraisService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
