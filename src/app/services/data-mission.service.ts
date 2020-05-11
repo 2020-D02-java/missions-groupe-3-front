@@ -14,6 +14,7 @@ export class DataMissionService {
   missionCree = new Subject<string>();
   missions = new Subject<Mission[]>();
   missionModifiee = new Subject<string>();
+  missionValidee = new Subject<string>();
   mission: Mission;
   delete = new Subject<string>();
 
@@ -75,7 +76,6 @@ export class DataMissionService {
   }
 
   modifierMission(mission: Mission) {
-    console.log("modification "+mission.id);
     this._http.patch<string>(environment.baseUrl + "missions", mission).subscribe((data:string)=> {
       console.log("requete modification : ok");
       this.missionModifiee.next(data);
@@ -97,6 +97,23 @@ export class DataMissionService {
       this.missions.next(data);
     }, (error:any) => {
       console.log(error);
+    });
+  }
+
+  loadMissionAttente(email: string, tri: string, triDateDebut: boolean, triDateFin: boolean){
+    this._http.get<Mission[]>(environment.baseUrl + "missions/attente?email=" + email + "&tri=" + tri + "&triDateDebut=" + triDateDebut + "&triDateFin=" + triDateFin).subscribe((data:Mission[])=> {
+      this.missions.next(data);
+    }, (error:any) => {
+      console.log(error);
+    });
+  }
+
+  validationMission(type: boolean, id: number){
+    this._http.get<string>(environment.baseUrl + "missions/validation?type=" + type + "&id=" + id).subscribe((data:string)=> {
+      this.missionValidee.next(data);
+    }, (error:any) => {
+      console.log(error);
+      this.missionValidee.next(error);
     });
   }
 

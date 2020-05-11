@@ -30,7 +30,9 @@ export class MissionsVisualisationComponent implements OnInit {
 
   ngOnInit(): void {
     this.collegueConnecte = this.authSrv.collegueConnecteObs;
-    this.collegueConnecte.subscribe(data => this.collegue = data);
+    this.collegueConnecte.subscribe(data => {
+      this.collegue = data;
+    });
     this.missionService.abonnementMissions().subscribe(data => this.missions = data);
     this.missionService.chargerMissions(this.collegue.email);
   }

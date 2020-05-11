@@ -2,6 +2,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 </head>
 <h3 align="center">Visualisation des missions</h3>
+<br/>
 <table mdbTable class="z-depth-1" align="center">
   <thead>
     <tr >
@@ -28,8 +29,8 @@
       <td>{{mission.transport}}</td>
       <td>{{mission.statut}}</td>
       <td>
-        <a *ngIf="mission.statut == 'Initiale' || mission.statut == 'Rejetee'" (click)="modifier(mission)"><fa-icon [icon]="faPencilAlt"></fa-icon></a>
         <a (click)="supprimer(mission)"><fa-icon [icon]="faTrashAlt"></fa-icon></a>
+        <a *ngIf="mission.statut == 'INITIALE' || mission.statut == 'REJETEE'" (click)="modifier(mission)"><fa-icon [icon]="faPencilAlt"></fa-icon></a>
       </td>
     </tr>
   </tbody>

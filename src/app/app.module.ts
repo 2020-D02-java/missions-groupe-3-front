@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.component';
 import { MissionsVisualisationComponent } from './missions-visualisation/missions-visualisation.component';
 import { MissionsModificationComponent } from './missions-modification/missions-modification.component';
+import { MissionsManagerComponent } from './missions-manager/missions-manager.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MissionsModificationComponent } from './missions-modification/missions-
     MissionDemandeComponent,
     CollapseNavbarComponent,
     MissionsVisualisationComponent,
-    MissionsModificationComponent
+    MissionsModificationComponent,
+    MissionsManagerComponent
   ],
   imports: [
     BrowserModule,
