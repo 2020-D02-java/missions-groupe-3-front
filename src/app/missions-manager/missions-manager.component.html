@@ -1,0 +1,37 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+</head>
+<h3 align="center">Validation des missions</h3>
+<br/>
+<div *ngIf="manager">
+    <table mdbTable class="z-depth-1" align="center">
+      <thead>
+        <tr >
+          <th width="150" align="center">Date de début 
+              <a (click) = "trierMissionsDateDebut()"><i class="fas fa-arrows-alt-v"></i></a></th>
+          <th width="150" align="center">Date de fin
+            <a (click) = "trierMissionsDateFin()"><i class="fas fa-arrows-alt-v"></i></a>
+          </th>
+          <th width="100" align="center">Nature</th>
+          <th width="100" align="center">Départ</th>
+          <th width="100" align="center">Arrivée</th>
+          <th width="100" align="center">Transport</th>
+          <th width="100" align="center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let mission of missions">
+          <td >{{mission.date_debut | date : 'dd-MM-yyyy'}}</td>
+          <td>{{mission.date_fin | date : 'dd-MM-yyyy'}}</td>
+          <td>{{mission.nature}}</td>
+          <td>{{mission.ville_depart}}</td>
+          <td>{{mission.ville_arrive}}</td>
+          <td>{{mission.transport}}</td>
+          <td>
+            <a (click)="validerDemande(mission)"><i class="fas fa-check"></i></a>
+            <a (click)="rejeterDemande(mission)"><i class="fas fa-times"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>

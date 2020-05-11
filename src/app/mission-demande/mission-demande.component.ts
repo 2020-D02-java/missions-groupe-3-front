@@ -100,7 +100,7 @@ export class MissionDemandeComponent implements OnInit {
       }else if (data == "true"){
         this.erreur_chevauchement = false;
         if (!this.erreur){//si il n'y a pas d'erreurs le statut est a initiale et on peut l'insérer en base
-          this.mission.statut="Initiale";
+          this.mission.statut="INITIALE";
           this.mission.collegue_email = this.collegue.email;
           this.dataMissionService.creerMission(this.mission);
           this.dataMissionService.abonnementMissionCree().subscribe(data=>{
