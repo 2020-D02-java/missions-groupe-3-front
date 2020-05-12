@@ -14,7 +14,7 @@ export class NatureService {
   constructor(private _http: HttpClient) { }
 
   loadNatures() {
-    this._http.get(environment.baseUrl + "natures").subscribe((data: Nature[]) => {
+    this._http.get(environment.baseUrl + "natures/valides").subscribe((data: Nature[]) => {
       this.natures.next(data);
     }, (error: any) => {
       console.log("erreur lors de la requete de chargement des natures");

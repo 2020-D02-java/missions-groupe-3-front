@@ -19,7 +19,8 @@ export class MissionDemandeComponent implements OnInit {
   collegueConnecte: Observable<Collegue>;
   collegue: Collegue;
   natures: Nature[];
-  mission: Mission = new Mission(null, null, null, null, '', '', '', '', '', '');
+  natureVide: Nature = new Nature(-1,'');
+  mission: Mission = new Mission(null, null, null, null, this.natureVide, '', '', '', '', '');
   erreur: boolean = false;
   erreur_date_debut: boolean = false;
   erreur_date_fin: boolean = false;
@@ -29,6 +30,7 @@ export class MissionDemandeComponent implements OnInit {
   erreur_chevauchement: boolean = false;
   validation: boolean = false;
   collegue_non_trouve: boolean = false;
+  nomNature: string;
 
   ngOnInit(): void {
     this.collegueConnecte = this.authSrv.collegueConnecteObs;
@@ -38,7 +40,7 @@ export class MissionDemandeComponent implements OnInit {
   }
 
   annuler(){
-    this.mission = new Mission(null, null, null, null, '', '', '', '','', '');
+    this.mission = new Mission(null, null, null, null, this.natureVide, '', '', '','', '');
     this.erreur = false;
     this.erreur_date_debut = false;
     this.erreur_date_fin = false;
@@ -101,6 +103,11 @@ export class MissionDemandeComponent implements OnInit {
         this.erreur_chevauchement = false;
         if (!this.erreur){//si il n'y a pas d'erreurs le statut est a initiale et on peut l'insérer en base
           this.mission.statut="INITIALE";
+          this.natures.forEach(value => {
+            if (this.nomNature == value.nom){
+              this.mission.nature = value;
+            }
+          });
           this.mission.collegue_email = this.collegue.email;
           this.dataMissionService.creerMission(this.mission);
           this.dataMissionService.abonnementMissionCree().subscribe(data=>{
@@ -108,7 +115,7 @@ export class MissionDemandeComponent implements OnInit {
             if (chaine == "cree"){
               this.validation = true;
               setTimeout(() => {this.validation = false }, 5000);
-            this.mission = new Mission(null, null, null, null, '', '', '', '','', '');
+            this.mission = new Mission(null, null, null, null, this.natureVide, '', '', '','', '');
             }else if (chaine == "erreur:404"){
               this.collegue_non_trouve = true;
             }

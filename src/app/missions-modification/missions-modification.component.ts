@@ -28,6 +28,7 @@ export class MissionsModificationComponent implements OnInit {
   collegue_non_trouve: boolean = false;
   collegueConnecte: Observable<Collegue>;
   collegue: Collegue;
+  natureNom: string;
 
   constructor(private authSrv: AuthService, private natureService: NatureService, private dataMissionService: DataMissionService, private route: ActivatedRoute, private router: Router) { }
 
@@ -40,6 +41,7 @@ export class MissionsModificationComponent implements OnInit {
     if (this.mission == undefined){
       this.router.navigate(['/missions_visualisation']);
     }
+    this.natureNom = this.mission.nature.nom;
   }
 
   annuler(){
@@ -99,6 +101,11 @@ export class MissionsModificationComponent implements OnInit {
         if (!this.erreur){//si il n'y a pas d'erreurs le statut est a initiale et on peut l'insérer en base
           this.mission.statut="INITIALE";
           this.mission.collegue_email = this.collegue.email;
+          this.natures.forEach(value => {
+            if (value.nom == this.natureNom){
+              this.mission.nature = value;
+            }
+          });
           this.dataMissionService.missionModifiee.asObservable().subscribe(data=>{
             let chaine: string = data.valueOf();
             if (chaine == "modifiee"){

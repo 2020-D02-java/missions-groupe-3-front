@@ -29,7 +29,7 @@
             <div class="form-group row">
                 <label for="nature" class="col-6 offset-md-3 col-md-3 col-form-label">Nature : </label>
                 <div class="col-6 col-md-3">
-                    <select name="nature" id="nature" #etatNature="ngModel" [(ngModel)]="mission.nature">
+                    <select name="nature" id="nature" #etatNature="ngModel" [(ngModel)]="nomNature">
                         <option value="">Choisissez une nature</option>
                         <option *ngFor = "let nature of natures" value="{{nature.nom}}">{{nature.nom}}</option>
                     </select>

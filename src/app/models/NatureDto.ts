@@ -1,3 +1,3 @@
 export class Nature{
-    constructor(public nom:string){}
+    constructor(public id: number, public nom:string){}
 }
