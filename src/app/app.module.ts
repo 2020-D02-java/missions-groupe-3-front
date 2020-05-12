@@ -29,6 +29,7 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 
 registerLocaleData(localeFr);
+import { NatureMissionModificationComponent } from './nature-mission-modification/nature-mission-modification.component';
 
 
 @NgModule({
@@ -47,7 +48,9 @@ registerLocaleData(localeFr);
     MissionsVisualisationComponent,
     MissionsModificationComponent,
     MissionsManagerComponent,
-    MissionsPlanningComponent
+    MissionsPlanningComponent,
+    CollapseNavbarComponent,
+    NatureMissionModificationComponent
   ],
   imports: [
     BrowserModule,
