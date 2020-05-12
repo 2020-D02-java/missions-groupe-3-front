@@ -36,7 +36,7 @@ export class MissionsPlanningComponent implements OnInit {
       this.missions.forEach(value => {
         let date: Date;
         for (date = new Date(value.date_debut); date <= new Date(value.date_fin) ; date.setDate(new Date(date).getDate() + 1)){
-          let event: Evenement = new Evenement(value.nature, this.convertDate(date));
+          let event: Evenement = new Evenement(value.nature.nom, this.convertDate(date));
           this.events.push(event);
         }
       });

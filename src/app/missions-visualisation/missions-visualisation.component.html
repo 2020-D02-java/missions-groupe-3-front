@@ -23,7 +23,7 @@
     <tr *ngFor = "let mission of missions">
       <td >{{mission.date_debut | date : 'dd-MM-yyyy'}}</td>
       <td>{{mission.date_fin | date : 'dd-MM-yyyy'}}</td>
-      <td>{{mission.nature}}</td>
+      <td>{{mission.nature.nom}}</td>
       <td>{{mission.ville_depart}}</td>
       <td>{{mission.ville_arrive}}</td>
       <td>{{mission.transport}}</td>
