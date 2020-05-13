@@ -4,8 +4,8 @@ export class Nature {
     public facturation:boolean,
     public tjm:string,
     public prime:boolean,
-    public primePourcentage:string,
-    public plafond:string,
+    public primePourcentage:number,
+    public plafond:number,
     public plafondDepassable:boolean,
     public dateDebut:Date,
     public dateFin:Date
