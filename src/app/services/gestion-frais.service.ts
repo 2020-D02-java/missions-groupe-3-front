@@ -5,6 +5,7 @@ import { NoteDeFrais } from '../models/NoteDeFrais';
 import { Observable } from 'rxjs/internal/Observable';
 import { LigneDeFrais } from '../models/LigneDeFrais';
 import { Prime } from '../models/Prime';
+import { Subject } from 'rxjs';
 
 /**
  * Service donnant accès aux informations techniques
@@ -13,6 +14,8 @@ import { Prime } from '../models/Prime';
   providedIn: 'root'
 })
 export class GestionFraisService {
+
+  disponibiliteLigneFrais = new Subject<string>();
 
   constructor(private http: HttpClient) { }
 
@@ -52,4 +55,22 @@ enregistrerLigneFrais(ligneDeFrais: LigneDeFrais): Observable<LigneDeFrais> {
   return this.http.post<LigneDeFrais>(`${environment.baseUrl}ligne`, ligneDeFrais);
 }
 
+
+verifierDisponibilite(date: Date, nature: string) {
+  this.http.get(`${environment.baseUrl}ligne`+ '/disponibilite?date=' + date + '&nature=' + nature).subscribe((data: string) => {
+    let chaine: string = data.valueOf().toString();
+    if (chaine == 'true'){
+      this.disponibiliteLigneFrais.next('true');
+    }else if (chaine == 'false'){
+      console.log('false')
+      this.disponibiliteLigneFrais.next('false');
+    }else if (chaine == 'erreur:404'){
+      console.log('erreur: resultat non trouvé');
+      this.disponibiliteLigneFrais.next('erreur:404');
+    }
+  }, (error: any) => {
+    console.log('erreur lors de la requete de recherche de disponibilite');
+  });
 }
+}
+
