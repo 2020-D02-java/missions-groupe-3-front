@@ -27,6 +27,7 @@ import { MissionsPlanningComponent } from './missions-planning/missions-planning
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { PrimesComponent } from './primes/primes.component';
 
 registerLocaleData(localeFr);
 
@@ -47,7 +48,8 @@ registerLocaleData(localeFr);
     MissionsVisualisationComponent,
     MissionsModificationComponent,
     MissionsManagerComponent,
-    MissionsPlanningComponent
+    MissionsPlanningComponent,
+    PrimesComponent
   ],
   imports: [
     BrowserModule,
