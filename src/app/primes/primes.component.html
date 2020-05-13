@@ -1,0 +1,39 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+</head>
+<h3 align="center">Récapitulatif des primes</h3>
+<br />
+<div class="row">
+    <div class="col-12 col-lg-6">
+        <select name="annees" id="annees" #etatNature="ngModel" [(ngModel)]="annee" (ngModelChange)="onChange($event)">
+            <option [ngValue]="element" *ngFor="let element of annees" value="{{element}}">{{element}}</option>
+        </select>
+        <table mdbTable class="z-depth-1" align="center">
+            <thead>
+                <tr>
+                    <th width="150" align="center">Date de début
+                        <a (click)="trierDate()"><i class="fas fa-arrows-alt-v"></i></a></th>
+                    <th width="150" align="center">Date de fin
+                        <a (click)="trierDate()"><i class="fas fa-arrows-alt-v"></i></a>
+                    </th>
+                    <th width="100" align="center">Nature</th>
+                    <th width="100" align="center">Prime</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let prime of primes">
+                    <td>{{prime.date_debut | date : 'dd-MM-yyyy'}}</td>
+                    <td>{{prime.date_fin | date : 'dd-MM-yyyy'}}</td>
+                    <td>{{prime.nature.nom}}</td>
+                    <td>{{prime.montantEuros}} €</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+    </div>
+    <div class="col-12 col-lg-6">
+        <google-chart #chart [title]="title" [type]="type" [data]="data" [options]="options"
+            [width]="width" [height]="height">
+        </google-chart>
+    </div>
+</div>

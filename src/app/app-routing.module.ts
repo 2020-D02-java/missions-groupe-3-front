@@ -12,6 +12,7 @@ import { MissionsVisualisationComponent } from './missions-visualisation/mission
 import { MissionsModificationComponent } from './missions-modification/missions-modification.component';
 import { MissionsManagerComponent } from './missions-manager/missions-manager.component';
 import { MissionsPlanningComponent } from './missions-planning/missions-planning.component';
+import { PrimesComponent } from './primes/primes.component';
 
 
 const routes: Routes =  [
@@ -26,6 +27,7 @@ const routes: Routes =  [
   { path: 'mission_modification', component: MissionsModificationComponent, canActivate: [StatutConnecteService]},
   { path: 'missions_manager', component: MissionsManagerComponent, canActivate: [StatutConnecteService]},
   { path: 'missions_planning', component: MissionsPlanningComponent, canActivate: [StatutConnecteService]},
+  { path: 'primes', component: PrimesComponent, canActivate: [StatutConnecteService]},
   { path: '', redirectTo: '/connexion', pathMatch: 'full'},
 ];
 
