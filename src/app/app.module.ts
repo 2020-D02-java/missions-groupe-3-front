@@ -19,6 +19,7 @@ import { AjouterFraisComponent } from './saisie-noteFrais/ajouter-frais.componen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.component';
 import { GestionFraisService } from './services/gestion-frais.service';
+import { AjouterLigneComponent } from './ajouter-ligne/ajouter-ligne.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { GestionFraisService } from './services/gestion-frais.service';
     MenuComponent,
     GestionFraisComponent,
     AjouterFraisComponent,
-    CollapseNavbarComponent
+    CollapseNavbarComponent,
+    AjouterLigneComponent
   ],
   imports: [
     BrowserModule,

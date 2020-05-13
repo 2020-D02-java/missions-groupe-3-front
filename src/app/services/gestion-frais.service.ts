@@ -48,4 +48,8 @@ requestGetPrime(idNote: string): Observable<Prime[]> {
   return this.http.get<Prime[]>(`${environment.baseUrl}prime/UUID=${idNote}`);
 }
 
+enregistrerLigneFrais(ligneDeFrais: LigneDeFrais): Observable<LigneDeFrais> {
+  return this.http.post<LigneDeFrais>(`${environment.baseUrl}ligne`, ligneDeFrais);
+}
+
 }
