@@ -28,6 +28,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { PrimesComponent } from './primes/primes.component';
+import { GoogleChartsModule } from 'angular-google-charts'
 
 registerLocaleData(localeFr);
 
@@ -58,7 +59,8 @@ registerLocaleData(localeFr);
     FormsModule,
     FontAwesomeModule,
     NgbModule,
-    FullCalendarModule
+    FullCalendarModule,
+    GoogleChartsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
