@@ -29,9 +29,8 @@ export class PrimesComponent implements OnInit {
     ['Others', 0.7]
   ];
   columnNames = ['Mois', 'Montant prime'];
-  options = {
-  };
-  width = 650;
+  options = {'chartArea': {'width': '90%', 'height': '80%'}};
+  width = 550;
   height = 400;
   //-----------------------------------------------------//
 
