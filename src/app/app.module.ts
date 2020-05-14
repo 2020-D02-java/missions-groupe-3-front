@@ -20,6 +20,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseNavbarComponent } from './collapse-navbar/collapse-navbar.component';
 import { GestionFraisService } from './services/gestion-frais.service';
 import { AjouterLigneComponent } from './ajouter-ligne/ajouter-ligne.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { AjouterLigneComponent } from './ajouter-ligne/ajouter-ligne.component';
     HttpClientModule,
     FormsModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

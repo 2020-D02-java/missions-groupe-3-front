@@ -9,6 +9,7 @@ import { Prime } from '../models/Prime';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Mission } from '../models/mission';
 import * as moment from 'moment';
+import { AbstractControl } from '@angular/forms';
 
 
 @Component({
@@ -24,13 +25,14 @@ export class AjouterFraisComponent implements OnInit {
   idNote: string;
   ligneDeFrais: LigneDeFrais = new LigneDeFrais();
   mission: Mission = new Mission("", "", "", "", "", "");
+
+
   dateFormat
   erreur_date: boolean = false;
 
   erreur_montant: boolean = false;
 
   erreur_disponnibilite: boolean = false;
-
 
 
 
@@ -47,7 +49,7 @@ export class AjouterFraisComponent implements OnInit {
 
     this.gestionFraisService.requestGetNoteFraisById(this.idNote).subscribe
       (dataNote => {
-      this.notefrais = dataNote;
+        this.notefrais = dataNote;
       }, (erreur: HttpErrorResponse) => console.log(`Erreur: ${erreur}`));
   }
 
@@ -56,7 +58,7 @@ export class AjouterFraisComponent implements OnInit {
   requestGetLigneFrais(): void {
     this.gestionFraisService.requestGetLigneFrais(this.idNote).subscribe
       (data => {
-      this.listLignefrais = data;
+        this.listLignefrais = data;
         this.listLignefrais.forEach(value => value.montantEuros = value.montant / 100);
       }, (erreur: HttpErrorResponse) => console.log(`Erreur: ${erreur}`));
   }
@@ -66,7 +68,7 @@ export class AjouterFraisComponent implements OnInit {
   requestPrime(): void {
     this.gestionFraisService.requestGetPrime(this.idNote).subscribe
       (data => {
-      this.primeMission = data;
+        this.primeMission = data;
         this.primeMission.forEach(value => value.montantEuros = value.montant / 100);
 
       }, (erreur: HttpErrorResponse) => console.log(`Erreur: ${erreur}`));
@@ -83,13 +85,13 @@ export class AjouterFraisComponent implements OnInit {
       // Quand je clique sur ajouter, ça passe par ici
       //changement de format date et supression d'ancien date(objet) et le remplacer par le nouveau
 
-       this.dateFormat = moment(this.ligneDeFrais.date).subtract(1, 'M').format('YYYY-MM-DD');
+      this.dateFormat = moment(this.ligneDeFrais.date).subtract(1, 'M').format('YYYY-MM-DD');
 
-       this.ligneDeFrais.date = this.dateFormat;
+      this.ligneDeFrais.date = this.dateFormat;
 
       console.log(this.ligneDeFrais)
       this.valider(this.ligneDeFrais);
-      }, (reason) => {
+    }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log('2');
     });
@@ -108,7 +110,7 @@ export class AjouterFraisComponent implements OnInit {
 
   valider(maLigneFrais) {
     //la date de debut doit etre entre la date de debut et fin de la mission
-    /* if (maLigneFrais.date != null && (this.mission.date_debut <= maLigneFrais.date) && (this.mission.date_fin >= maLigneFrais.date)) {
+    if (maLigneFrais.date != null && (this.mission.date_debut <= maLigneFrais.date) && (this.mission.date_fin >= maLigneFrais.date)) {
       this.erreur_date = false;
     } else {
       this.erreur_date = true;
@@ -123,12 +125,24 @@ export class AjouterFraisComponent implements OnInit {
     this.gestionFraisService.disponibiliteLigneFrais.subscribe(data => {
       if (data == 'true') {
         this.erreur_disponnibilite = true;
-      }
-      else {
+      } else {
       this.erreur_disponnibilite = false;
       }
     })
-    this.gestionFraisService.verifierDisponibilite(maLigneFrais.date, maLigneFrais.nature);*/
+    this.gestionFraisService.verifierDisponibilite(maLigneFrais.date, maLigneFrais.nature);
     this.gestionFraisService.enregistrerLigneFrais(maLigneFrais).subscribe();
   }
+
+
+  chekmontant(control: AbstractControl) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value >0) {
+            resolve({ emailIsTaken: true })
+        } else {resolve(null)}
+      }, 2000)
+    })
+}
+
+
 }

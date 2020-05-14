@@ -24,7 +24,7 @@ export class GestionFraisService {
    */
 
   requestGetNoteFrais(): Observable<NoteDeFrais[]> {
-     return this.http.get<NoteDeFrais[]>(`${environment.baseUrl}note`);
+     return this.http.get<NoteDeFrais[]>(`${environment.baseUrl}note/UUID=1`);
   }
 
 
@@ -57,7 +57,7 @@ enregistrerLigneFrais(ligneDeFrais: LigneDeFrais): Observable<LigneDeFrais> {
 
 
 verifierDisponibilite(date: Date, nature: string) {
-  this.http.get(`${environment.baseUrl}ligne`+ '/disponibilite?date=' + date + '&nature=' + nature).subscribe((data: string) => {
+  this.http.get(`${environment.baseUrl}ligne` + '/disponibilite?date=' + date + '&nature=' + nature).subscribe((data: string) => {
     let chaine: string = data.valueOf().toString();
     if (chaine == 'true'){
       this.disponibiliteLigneFrais.next('true');

@@ -23,6 +23,7 @@ export class GestionFraisComponent implements OnInit {
   ngOnInit(): void {
     this.gestionFraisService.requestGetNoteFrais().subscribe
     (data => { this.notefrais = data;
+      console.log(data)
                this.notefrais.forEach(value => value.fraisEuros = value.frais / 100);
    }, (erreur: HttpErrorResponse) => console.log(`Erreur: ${erreur}`))};
 }

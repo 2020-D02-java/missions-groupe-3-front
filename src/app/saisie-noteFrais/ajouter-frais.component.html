@@ -47,14 +47,14 @@
             </td>
           </tr>
         </table>
-        <div class="d-flex justify-content-end">Ajouter un frais <button class="btn btn-lg btn-primary"
+        <div class="d-flex justify-content-end">Ajouter un frais <button class="btn btn-primary btn-sm"
             (click)="open(content)"> + </button>
         </div>
 
 
 
 
-        <ng-template #content let-modal>
+        <ng-template #content let-modal >
           <div class="modal-header">
             <h5 class="modal-title" id="modal-basic-title">Ajout d'une ligne de frais</h5>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -62,7 +62,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form [formGroup]="form">
               <div class="form-group row">
                 <label for="date" class="col-6 offset-md-2 col-md-2 col-form-label">Date </label>
                 <div class="col-6 col-md-6">
@@ -72,8 +72,8 @@
                     <button class="btn btn-primary calendar" (click)="dp.toggle()" type="button"></button>
                   </div>
                 </div>
-                <small class="offset-md-3 col-md-7" *ngIf="erreur_date">la date de debut d'un nouveau ligne de frais
-                  doit etre comprise entre la date de debut et fin de la mission de la note</small>
+                <small class="offset-md-3 col-md-7" *ngIf="erreur_date">la date d'un nouveau ligne de frais
+                  doit etre comprise entre la date de debut et de fin de la mission</small>
               </div>
               <div class="form-group row">
                 <label for="nature" class="col-6 offset-md-2 col-md-2 col-form-label">Nature </label>
@@ -82,7 +82,7 @@
                     [(ngModel)]="ligneDeFrais.nature" required>
                 </div>
                 <small class="offset-md-3 col-md-7" *ngIf="erreur_disponnibilite">Attention ligne de frais deja
-                  existant!! vous pouvez pas saisir deux lignes de frais identifiques (même couple date/nature)</small>
+                  existant!! (même couple date/nature)</small>
               </div>
               <div class="form-group row">
                 <label for="montant" class="col-6 offset-md-2 col-md-2 col-form-label">Montant(€) </label>
@@ -96,14 +96,15 @@
             </form>
             <div class="modal-footer">
               <div class="col-6  offset-md-3 col-md-3">
-                <button type="button" class="btn btn-danger">Annuler</button>
-              </div>
+                <button type="button" ngbAutofocus class="btn btn-danger"
+                (click)="modal.close('Ok click')">Annuler</button>              </div>
               <div class="col-6 col-md-3">
+
                 <button type="button" class="btn btn-success" (click)="modal.close('Save click')">Valider</button>
               </div>
             </div>
-            <hr>
-            <pre>{{ closeResult }}</pre>
+
           </div>
-        </ng-template>>
+        </ng-template>
+
 
