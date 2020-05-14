@@ -1,4 +1,5 @@
 import { NaturesDeMissionComponent } from './natures-de-mission/natures-de-mission.component';
+import { NatureMissionModificationComponent } from './nature-mission-modification/nature-mission-modification.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {TechComponent} from './tech/tech.component';
@@ -22,6 +23,7 @@ const routes: Routes =  [
   { path: 'auth', component: AuthComponent},
   { path: 'connexion', component: ConnexionComponent},
   { path: 'natures-de-mission', component: NaturesDeMissionComponent},
+  { path: 'nature-modification', component: NatureMissionModificationComponent, canActivate: [StatutConnecteService]},
   { path: 'accueil', component: AccueilComponent, canActivate: [StatutConnecteService]},
   { path: 'noteFrais', component: GestionFraisComponent, canActivate: [StatutConnecteService]},
   { path: 'ajouterNoteFrais/:id', component: AjouterFraisComponent, canActivate: [StatutConnecteService]},
