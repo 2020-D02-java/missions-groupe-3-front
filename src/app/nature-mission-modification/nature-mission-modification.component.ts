@@ -1,6 +1,7 @@
 import { DataNatureService } from './../services/data-nature.service';
 import { Nature } from './../models/Nature';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-nature-mission-modification',
@@ -9,31 +10,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NatureMissionModificationComponent implements OnInit {
 
-  //natureSaisie:Nature;
-  natureSaisie = new Nature("", null, "", null, null , null, null, null, null)
-  erreurPourcentage : boolean = false;
+  natureSaisie = new Nature("", null, "", null, null, null, null, null, null)
+  erreurPourcentage: boolean = false;
   erreurPlafondFrais: boolean = false;
+  validation: boolean = false;
 
-  factureMode:boolean;
-  primeMode:boolean;
+  factureMode: boolean;
+  primeMode: boolean;
+
+  @ViewChild(NgForm) myForm: NgForm
 
 
-  constructor(private dataNatureService: DataNatureService ) { }
+  constructor(private dataNatureService: DataNatureService) { }
 
-  valider(){
-    console.log(this.natureSaisie)
+  valider() {
 
-    if (this.natureSaisie.primePourcentage > 10 ) {
+    if (this.natureSaisie.primePourcentage > 10) {
       this.erreurPourcentage = true
+    } else {
+      this.erreurPourcentage = false
     }
 
     if (this.natureSaisie.plafond <= 0) {
       this.erreurPlafondFrais = true
+    } else {
+      this.erreurPlafondFrais = false
     }
-    this.dataNatureService.modifierNature(this.natureSaisie)
+
+    if (this.erreurPourcentage == false && this.erreurPlafondFrais == false) {
+      this.dataNatureService.modifierNature(this.natureSaisie)
+      this.validation = true
+      this.myForm.resetForm()
+      setTimeout(() => {
+        this.validation = false
+      }, 5000);
+    }
+
   }
 
-  facturation(value){
+  facturation(value) {
     if (value == true) {
       this.factureMode = true
     } else {
