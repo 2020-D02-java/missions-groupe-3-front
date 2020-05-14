@@ -6,6 +6,7 @@ import { Collegue } from '../auth/auth.domains';
 import { AuthService } from '../auth/auth.service';
 import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Nature } from '../models/NatureDto';
 
 @Component({
   selector: 'app-missions-visualisation',
@@ -33,7 +34,14 @@ export class MissionsVisualisationComponent implements OnInit {
     this.collegueConnecte.subscribe(data => {
       this.collegue = data;
     });
-    this.missionService.abonnementMissions().subscribe(data => this.missions = data);
+    this.missionService.abonnementMissions().subscribe(data => {
+      this.missions = data;
+      this.missions.forEach(value => {
+        if (value.nature == null || value.nature.nom == null){
+          value.nature = new Nature(-1, '');
+        }
+      });
+    });
     this.missionService.chargerMissions(this.collegue.email);
   }
 
