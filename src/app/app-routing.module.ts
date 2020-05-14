@@ -19,7 +19,7 @@ const routes: Routes =  [
   { path: 'tech', component: TechComponent, canActivate: [StatutConnecteService]}, // /tech accessible uniquement si connecté
   { path: 'auth', component: AuthComponent},
   { path: 'connexion', component: ConnexionComponent},
-  { path: 'nature-modification', component: NatureMissionModificationComponent},
+  { path: 'nature-modification', component: NatureMissionModificationComponent, canActivate: [StatutConnecteService]},
   { path: 'accueil', component: AccueilComponent, canActivate: [StatutConnecteService]},
   { path: 'noteFrais', component: GestionFraisComponent, canActivate: [StatutConnecteService]},
   { path: 'ajouterNoteFrais/:id', component: AjouterFraisComponent, canActivate: [StatutConnecteService]},
