@@ -29,6 +29,7 @@
     "@fullcalendar/core": "^4.4.0",
     "@fullcalendar/daygrid": "^4.4.0",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
+    "angular-google-charts": "^1.1.4",
     "bootstrap": "^4.4.1",
     "jquery": "^1.9.1",
     "popper.js": "^1.16.1",

@@ -27,6 +27,8 @@ import { MissionsPlanningComponent } from './missions-planning/missions-planning
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { PrimesComponent } from './primes/primes.component';
+import { GoogleChartsModule } from 'angular-google-charts'
 
 registerLocaleData(localeFr);
 import { NatureMissionModificationComponent } from './nature-mission-modification/nature-mission-modification.component';
@@ -50,7 +52,8 @@ import { NatureMissionModificationComponent } from './nature-mission-modificatio
     MissionsManagerComponent,
     MissionsPlanningComponent,
     CollapseNavbarComponent,
-    NatureMissionModificationComponent
+    NatureMissionModificationComponent,
+    PrimesComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { NatureMissionModificationComponent } from './nature-mission-modificatio
     FormsModule,
     FontAwesomeModule,
     NgbModule,
-    FullCalendarModule
+    FullCalendarModule,
+    GoogleChartsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
