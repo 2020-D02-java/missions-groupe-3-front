@@ -18,7 +18,21 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { MenuComponent } from './menu/menu.component';
 import { CollapseNavbarComponent } from 'src/app/collapse-navbar/collapse-navbar.component';
 import { NaturesDeMissionComponent } from './natures-de-mission/natures-de-mission.component';
+import { GestionFraisComponent } from './gestion-frais/gestion-frais.component';
+import { MissionDemandeComponent } from './mission-demande/mission-demande.component';
+import { AjouterFraisComponent } from './saisie-noteFrais/ajouter-frais.component';
+import { GestionFraisService } from './services/gestion-frais.service';
+import { MissionsVisualisationComponent } from './missions-visualisation/missions-visualisation.component';
+import { MissionsModificationComponent } from './missions-modification/missions-modification.component';
+import { MissionsManagerComponent } from './missions-manager/missions-manager.component';
+import { MissionsPlanningComponent } from './missions-planning/missions-planning.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { PrimesComponent } from './primes/primes.component';
+import { GoogleChartsModule } from 'angular-google-charts'
 
+registerLocaleData(localeFr);
 
 
 @NgModule({
@@ -30,7 +44,17 @@ import { NaturesDeMissionComponent } from './natures-de-mission/natures-de-missi
     AccueilComponent,
     MenuComponent,
     NaturesDeMissionComponent,
-    CollapseNavbarComponent
+    CollapseNavbarComponent,
+    GestionFraisComponent,
+    AjouterFraisComponent,
+    CollapseNavbarComponent,
+    MissionDemandeComponent,
+    CollapseNavbarComponent,
+    MissionsVisualisationComponent,
+    MissionsModificationComponent,
+    MissionsManagerComponent,
+    MissionsPlanningComponent,
+    PrimesComponent
   ],
   imports: [
     BrowserModule,
@@ -38,13 +62,15 @@ import { NaturesDeMissionComponent } from './natures-de-mission/natures-de-missi
     HttpClientModule,
     FormsModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    FullCalendarModule,
+    GoogleChartsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,
     multi: true
-  }],
+  }, GestionFraisService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

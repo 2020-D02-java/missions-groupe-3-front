@@ -1,0 +1,47 @@
+<h3 align="center">Saisie des notes de frais</h3>
+<div class="container" *ngFor = "let note of notefrais ;  let i = index">
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <div>Nature </div>
+      <div>Date de début</div>
+      <div>Date de fin</div>
+    </div>
+    <div class="form-group col-md-3">
+      <div>{{note.nature}}</div>
+      <div>{{note.dateDebut}}</div>
+      <div>{{note.dateFin}}</div>
+   </div>
+    <div class="form-group col-md-3">
+      <div>Prime estimé</div>
+      <div>Départ</div>
+      <div>Arrivée</div>
+    </div>
+    <div class="form-group col-md-3">
+      <div >{{primeMission[i].montantEuros}}</div>
+      <div >{{note.depart}}</div>
+      <div>{{note.arrivee}}</div>
+    </div>
+  <div>
+<div>
+<table class="table table-striped" >
+    <tr class="table table-active" >
+        <th width="150" align="center" scope="col">Date</th>
+        <th width="150" align="center" scope="col">Nature</th>
+        <th width="150" align="center" scope="col">Montant</th>
+        <th width="150" align="center" scope="col">Actions</th>
+    </tr>
+    <tr *ngFor = "let ligne of lignefrais">
+        <td scope="row" >{{ligne.date}}</td>
+        <td>{{ligne.nature}}</td>
+        <td>{{ligne.montantEuros}}</td>
+        <td><a routerLink = "../modifierLigneFrais">
+          <button class="btn" ><fa-icon [icon]="modifIcon"></fa-icon></button>
+          </a>
+          <a routerLink = "../suprimerLigneFrais">
+            <button class="btn" ><fa-icon [icon]="suprimeIcon"></fa-icon></button>
+          </a>
+      </td>
+    </tr>
+</table>
+
+
