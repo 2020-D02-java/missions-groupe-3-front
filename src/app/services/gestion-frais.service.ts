@@ -55,6 +55,14 @@ enregistrerLigneFrais(ligneDeFrais: LigneDeFrais): Observable<LigneDeFrais> {
   return this.http.post<LigneDeFrais>(`${environment.baseUrl}ligne`, ligneDeFrais);
 }
 
+suprimerLigneFrais(idLigne: number): Observable<LigneDeFrais> {
+  return this.http.delete<LigneDeFrais>(`${environment.baseUrl}ligne` + '/${idLigne}');
+}
+
+modifierLigneFrais(ligneDeFrais: LigneDeFrais): Observable<LigneDeFrais> {
+  return this.http.put<LigneDeFrais>(`${environment.baseUrl}ligne`, ligneDeFrais);
+}
+
 
 verifierDisponibilite(date: Date, nature: string) {
   this.http.get(`${environment.baseUrl}ligne` + '/disponibilite?date=' + date + '&nature=' + nature).subscribe((data: string) => {

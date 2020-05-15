@@ -32,7 +32,7 @@
           </tr>
           <tr *ngFor="let ligne of listLignefrais">
             <td scope="row">{{ligne.date}}</td>
-            <td>{{ligne.nature}}</td>
+            <td>{{ligne.type}}</td>
             <td>{{ligne.montantEuros}}€</td>
             <td><a routerLink="../modifierLigneFrais">
                 <button class="btn"> <fa-icon [icon]="modifIcon"></fa-icon></button>
@@ -52,30 +52,33 @@
 </div>
 
 <ng-template #content let-modal >
-  <div class="modal-header">
+  <div class="modal-header bg-info text=white">
     <h5 class="modal-title" id="modal-basic-title">Ajout d'une ligne de frais</h5>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span></button>
   </div>
   <div class="modal-body">
-    <form >
+    <form [formGroup]= "ligneFraisForm">
       <div class="form-group row">
         <label for="date" class="col-6 offset-md-2 col-md-2 col-form-label">Date </label>
           <div class="col-6 col-md-6">
-            <input id="date" name="date" class="form-control" placeholder="  /  /    " name="dp" ngbDatepicker
-                    #dp="ngbDatepicker" [(ngModel)]="ligneDeFrais.date" required>
-            <div class="d-flex justify-content-end">
+            <input id="date" type = "text" class="form-control" formControlName="date"  placeholder="  /  /    " name="dp" ngbDatepicker
+                    #dp="ngbDatepicker" [(ngModel)]="ligneDeFrais.date" required/>
+            <!-- <div class="d-flex justify-content-end">
               <button class="btn btn-primary calendar" (click)="dp.toggle()" type="button"></button>
-            </div>
+            </div> -->
           </div>
-            <small style ="color:red" class="offset-md-3 col-md-7" *ngIf="erreur_date">la date d'un nouveau ligne de frais
-                  doit etre comprise entre la date de debut et de fin de la mission</small>
+            <!-- <small style ="color:red" class="offset-md-3 col-md-7" *ngIf="erreur_date">la date d'un nouveau ligne de frais
+                  doit etre comprise entre la date de debut et de fin de la mission</small> -->
+      </div>
+      <div class ="alert alert-danger" *ngIf="ligneFraisForm.controls['date'].invalid && (ligneFraisForm.controls['date'].touched || ligneFraisForm.controls['date'].dirty)"> La date est obligatoire !!
+
       </div>
       <div class="form-group row">
         <label for="nature" class="col-6 offset-md-2 col-md-2 col-form-label">Nature </label>
           <div class="col-6 col-md-6">
-            <input id="nature" name="nature" class="form-control" placeholder="Choix de nature de ligne"
-                    [(ngModel)]="ligneDeFrais.nature" required>
+            <input id="nature" type = "text" formControlName="type" class="form-control" placeholder="Choix de nature de ligne"
+                    [(ngModel)]="ligneDeFrais.type" required>
           </div>
             <small class="offset-md-3 col-md-7" *ngIf="erreur_disponnibilite">Attention ligne de frais deja
                   existant!! (même couple date/nature)</small>
@@ -83,7 +86,7 @@
       <div class="form-group row">
         <label for="montant" class="col-6 offset-md-2 col-md-2 col-form-label">Montant(€) </label>
           <div class="col-6 col-md-6" >
-            <input id="montant" name="montant" class="form-control" placeholder="montant" #date="ngModel"
+            <input id="montant" type = "text" class="form-control" formControlName="montant" placeholder="montant"
                     [(ngModel)]="ligneDeFrais.montant" required>
           </div>
             <small class="offset-md-3 col-md-7" *ngIf="erreur_montant">Le montant de la ligne de frais doit etre

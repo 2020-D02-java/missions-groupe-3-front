@@ -3,7 +3,7 @@
 export class LigneDeFrais   {
 
   date: Date;
-  nature: string;
+  type: string;
   montant: number;
   montantEuros: number;
 
