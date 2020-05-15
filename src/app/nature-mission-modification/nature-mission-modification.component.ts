@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { DataNatureService } from './../services/data-nature.service';
 import { Nature } from './../models/Nature';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -10,7 +11,7 @@ import { NgForm } from '@angular/forms';
 })
 export class NatureMissionModificationComponent implements OnInit {
 
-  natureSaisie = new Nature("", null, "", null, null, null, null, null, null)
+  nature : Nature
   erreurPourcentage: boolean = false;
   erreurPlafondFrais: boolean = false;
   validation: boolean = false;
@@ -18,32 +19,36 @@ export class NatureMissionModificationComponent implements OnInit {
   factureMode: boolean;
   primeMode: boolean;
 
+  factureModif: boolean
+  primeModif: boolean
+
   @ViewChild(NgForm) myForm: NgForm
 
 
-  constructor(private dataNatureService: DataNatureService) { }
+  constructor(private dataNatureService: DataNatureService, private router : Router) { }
 
   valider() {
 
-    if (this.natureSaisie.pourcentage > 10) {
+    if (this.nature.pourcentage > 10) {
       this.erreurPourcentage = true
     } else {
       this.erreurPourcentage = false
     }
 
-    if (this.natureSaisie.plafond <= 0) {
+    if (this.nature.plafond <= 0) {
       this.erreurPlafondFrais = true
     } else {
       this.erreurPlafondFrais = false
     }
 
     if (this.erreurPourcentage == false && this.erreurPlafondFrais == false) {
-      this.dataNatureService.modifierNature(this.natureSaisie)
+      this.dataNatureService.modifierNature(this.nature)
       this.validation = true
       this.myForm.resetForm()
       setTimeout(() => {
         this.validation = false
-      }, 5000);
+        this.router.navigate(['/natures-de-mission'])
+      }, 3000);
     }
 
   }
@@ -51,8 +56,10 @@ export class NatureMissionModificationComponent implements OnInit {
   facturation(value) {
     if (value == true) {
       this.factureMode = true
+      this.factureModif = true
     } else {
       this.factureMode = null
+      this.factureModif = null
       this.primeMode = false
     }
   }
@@ -60,13 +67,23 @@ export class NatureMissionModificationComponent implements OnInit {
   prime(value) {
     if (value == true) {
       this.primeMode = true
+      this.primeModif = true
     } else {
       this.primeMode = false
+      this.primeModif = false
     }
   }
 
   ngOnInit(): void {
+    this.nature = this.dataNatureService.nature;
 
+    if (this.nature.facturation == true || this.nature.prime == true) {
+      this.primeModif = true
+      this.factureModif = true
+     } else {
+      this.primeModif = false
+      this.factureModif = false
+     }
   }
 
 }

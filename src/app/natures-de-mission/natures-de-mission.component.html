@@ -20,7 +20,14 @@
           <td>{{nature.tjm}}</td>
           <td>{{nature.pourcentage}}</td>
           <td class="actions">
-            <a routerLink="/nature-modification"><fa-icon [icon]="faPencilAlt"></fa-icon></a>
+
+            <!-- AVEC MODALE MAIS PB INITIALISATION NATURE -->
+            <!-- <a routerLink="/natures-de-mission" (click)="openModification(content)">
+                <fa-icon [icon]="faPencilAlt"></fa-icon>
+           </a> -->
+
+           <!-- SANS MODALE -->
+            <a (click)="modifier(nature)" ><fa-icon [icon]="faPencilAlt"></fa-icon></a>
             <a type="submit" href=""><fa-icon [icon]="faTrashAlt"></fa-icon></a>
           </td>
         </tr>
@@ -32,3 +39,17 @@
     <button class="btn btn-primary">Plus</button>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Modification d'un nature de mission</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-nature-mission-modification></app-nature-mission-modification>
+  </div>
+</ng-template>
+
+

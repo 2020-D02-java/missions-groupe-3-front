@@ -7,7 +7,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="natureMission">Nature</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="natureMission" name="nom" [(ngModel)]="natureSaisie.nom"
+            <input type="text" class="form-control" id="natureMission" name="nom" [(ngModel)]="nature.nom"
               #etatNom="ngModel" required>
             <div *ngIf="etatNom.dirty && etatNom.invalid" class="alert alert-danger" role="alert">
               Le nom de la nature de mission est obligatoire
@@ -23,7 +23,7 @@
           <label class="col-sm-2 col-form-label" for="plafondFrais">Plafond de frais</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="plafondFrais" name="plafondFrais"
-              [(ngModel)]="natureSaisie.plafond" #etatPlafondFrais="ngModel" required>
+              [(ngModel)]="nature.plafond" #etatPlafondFrais="ngModel" required>
             <div *ngIf="etatPlafondFrais.dirty && erreurPlafondFrais == true" class="alert alert-danger" role="alert">
               Le montant des frais prise en charge est obligatoire et le montant doit être positif
             </div>
@@ -35,7 +35,7 @@
           <label class="col-sm-2 col-form-label" for="plafondFraisDepassable">Plafond dépassable</label>
           <div class="col-sm-10">
             <select class="form-control custom-select" id="plafondFraisDepassable" name="plafondFraisDepassable"
-              [(ngModel)]="natureSaisie.plafondDepassable" #etatplafondFraisDepassable="ngModel" required>
+              [(ngModel)]="nature.plafondDepassable" #etatplafondFraisDepassable="ngModel" required>
               <option value=true>OUI</option>
               <option value=false>NON</option>
             </select>
@@ -54,7 +54,7 @@
           <label class="col-sm-2 col-form-label" for="facturation">Facturée</label>
           <div class="col-sm-10">
             <select class="form-control custom-select" id="facturation" name="facturation"
-              (ngModelChange)="facturation($event)" [(ngModel)]="natureSaisie.facturation" #etatFacturation="ngModel"
+              (ngModelChange)="facturation($event)" [(ngModel)]="nature.facturation" #etatFacturation="ngModel"
               required>
               <option value=true [ngValue]=true>OUI</option>
               <option value=false [ngValue]=false>NON</option>
@@ -67,10 +67,10 @@
       </div>
       <div class="col">
         <!-- TJM -->
-        <div class="form-group row" *ngIf="factureMode == true || primeMode == true">
+        <div class="form-group row" *ngIf="factureMode == true || primeMode == true || factureModif">
           <label class="col-sm-2 col-form-label" for="tjm">TJM (€)</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="tjm" name="tjm" [(ngModel)]="natureSaisie.tjm"
+            <input type="text" class="form-control" id="tjm" name="tjm" [(ngModel)]="nature.tjm"
               #etatTjm="ngModel" required>
             <div *ngIf="etatTjm.dirty && etatTjm.invalid" class="alert alert-danger" role="alert">
               La saisie d'un TJM est obligatoire
@@ -82,11 +82,11 @@
     <div class="row">
       <div class="col">
         <!-- Prime -->
-        <div class="form-group row" *ngIf="factureMode == true || primeMode == true">
+        <div class="form-group row" *ngIf="factureMode == true || primeMode == true || factureModif == true" >
           <label class="col-sm-2 col-form-label" for="prime">Versement de prime</label>
           <div class="col-sm-10">
             <select class="form-control custom-select" id="prime" name="prime" (ngModelChange)="prime($event)"
-              [(ngModel)]="natureSaisie.prime" #etatPrime="ngModel" required>
+              [(ngModel)]="nature.prime" #etatPrime="ngModel" required>
               <option value=true [ngValue]=true>OUI</option>
               <option value=false [ngValue]=false>NON</option>
             </select>
@@ -98,11 +98,11 @@
       </div>
       <div class="col">
         <!-- % Prime -->
-        <div class="form-group row" *ngIf="primeMode == true">
+        <div class="form-group row" *ngIf="primeMode == true || primeModif == true">
           <label class="col-sm-2 col-form-label" for="%prime">% Prime</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="%prime" name="%prime"
-              [(ngModel)]="natureSaisie.pourcentage" #etatPrimePourcent="ngModel" required>
+              [(ngModel)]="nature.pourcentage" #etatPrimePourcent="ngModel" required>
 
             <div *ngIf="etatPrimePourcent.dirty && erreurPourcentage == true" class="alert alert-danger" role="alert">
               La saisie d'une prime est obligatoire et le montant doit être inférieur à 10%
