@@ -16,9 +16,19 @@ export class DataNatureService {
 
   constructor( private _http: HttpClient) { }
 
-  // abonnementNatures(): Observable<Nature[]> {
-  //   return this.natures.asObservable();
-  // }
+  abonnementNatures(): Observable<Nature[]> {
+    return this.natures.asObservable();
+  }
+
+  getNatures(){
+    this._http.get<Nature[]>(environment.baseUrl + "natures")
+      .subscribe((data:Nature[]) => {
+        this.natures.next(data)
+      }, (error:any) => {
+        console.log(error)
+      }
+    )
+  }
 
   modifierNature(nature : Nature) {
     this._http.patch<string>(environment.baseUrl + "natures/modification", nature).subscribe((data: string) => {

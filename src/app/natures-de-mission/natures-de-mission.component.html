@@ -13,14 +13,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row"></th>
-          <td></td>
-          <td></td>
-          <td> - </td>
-          <td> - </td>
+        <tr *ngFor= "let nature of natures">
+          <th scope="row">{{nature.nom}}</th>
+          <td>{{nature.facturation}}</td>
+          <td>{{nature.prime}}</td>
+          <td>{{nature.tjm}}</td>
+          <td>{{nature.pourcentage}}</td>
           <td class="actions">
-            <a href=""><fa-icon [icon]="faPencilAlt"></fa-icon></a>
+            <a routerLink="/nature-modification"><fa-icon [icon]="faPencilAlt"></fa-icon></a>
             <a type="submit" href=""><fa-icon [icon]="faTrashAlt"></fa-icon></a>
           </td>
         </tr>

@@ -25,7 +25,7 @@ export class NatureMissionModificationComponent implements OnInit {
 
   valider() {
 
-    if (this.natureSaisie.primePourcentage > 10) {
+    if (this.natureSaisie.pourcentage > 10) {
       this.erreurPourcentage = true
     } else {
       this.erreurPourcentage = false
