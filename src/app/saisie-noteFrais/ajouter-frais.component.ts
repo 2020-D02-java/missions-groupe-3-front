@@ -7,7 +7,6 @@ import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { Prime } from '../models/Prime';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Mission } from '../models/mission';
 import * as moment from 'moment';
 import { AbstractControl } from '@angular/forms';
 
@@ -24,7 +23,6 @@ export class AjouterFraisComponent implements OnInit {
   primeMission: Prime[];
   idNote: string;
   ligneDeFrais: LigneDeFrais = new LigneDeFrais();
-  mission: Mission = new Mission("", "", "", "", "", "");
 
 
   dateFormat
@@ -110,11 +108,11 @@ export class AjouterFraisComponent implements OnInit {
 
   valider(maLigneFrais) {
     //la date de debut doit etre entre la date de debut et fin de la mission
-    if (maLigneFrais.date != null && (this.mission.date_debut <= maLigneFrais.date) && (this.mission.date_fin >= maLigneFrais.date)) {
-      this.erreur_date = false;
-    } else {
-      this.erreur_date = true;
-    }
+    // if (maLigneFrais.date != null && (this.mission.date_debut <= maLigneFrais.date) && (this.mission.date_fin >= maLigneFrais.date)) {
+    //   this.erreur_date = false;
+    // } else {
+    //   this.erreur_date = true;
+    // }
     //Le montant de la ligne de frais est strictement positif
     if (maLigneFrais.montant > 0) {
       this.erreur_montant = false;

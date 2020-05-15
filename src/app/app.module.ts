@@ -14,6 +14,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { MenuComponent } from './menu/menu.component';
 import { GestionFraisComponent } from './gestion-frais/gestion-frais.component';
+import { MissionDemandeComponent } from './mission-demande/mission-demande.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AjouterFraisComponent } from './saisie-noteFrais/ajouter-frais.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,6 +23,18 @@ import { GestionFraisService } from './services/gestion-frais.service';
 import { AjouterLigneComponent } from './ajouter-ligne/ajouter-ligne.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { MissionsVisualisationComponent } from './missions-visualisation/missions-visualisation.component';
+import { MissionsModificationComponent } from './missions-modification/missions-modification.component';
+import { MissionsManagerComponent } from './missions-manager/missions-manager.component';
+import { MissionsPlanningComponent } from './missions-planning/missions-planning.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { PrimesComponent } from './primes/primes.component';
+import { GoogleChartsModule } from 'angular-google-charts'
+
+registerLocaleData(localeFr);
+import { NatureMissionModificationComponent } from './nature-mission-modification/nature-mission-modification.component';
 
 
 @NgModule({
@@ -35,7 +48,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     GestionFraisComponent,
     AjouterFraisComponent,
     CollapseNavbarComponent,
-    AjouterLigneComponent
+    AjouterLigneComponent,
+    MissionDemandeComponent,
+    CollapseNavbarComponent,
+    MissionsVisualisationComponent,
+    MissionsModificationComponent,
+    MissionsManagerComponent,
+    MissionsPlanningComponent,
+    CollapseNavbarComponent,
+    NatureMissionModificationComponent,
+    PrimesComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +66,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     FontAwesomeModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule,
+    GoogleChartsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

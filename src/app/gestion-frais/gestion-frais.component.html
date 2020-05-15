@@ -1,28 +1,33 @@
 <h3 align="center">Gestion des notes de frais</h3>
-<table  class="table table-striped" align="center">
-  <thead >
-    <tr >
-      <th width="150" align="center">Date de début</th>
-      <th width="150" align="center">Date de fin</th>
-      <th width="100" align="center">Nature</th>
-      <th width="100" align="center">Départ</th>
-      <th width="100" align="center">Arrivée</th>
-      <th width="100" align="center">Transport</th>
-      <th width="100" align="center">Frais</th>
-      <th width="100" align="center">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor = "let note of notefrais">
-      <td >{{note.dateDebut}}</td>
-      <td>{{note.dateFin}}</td>
-      <td>{{note.nature}}</td>
-      <td>{{note.depart}}</td>
-      <td>{{note.arrivee}}</td>
-      <td>{{note.transport}}</td>
-      <td>{{note.fraisEuros}}€</td>
-      <td><a routerLink = "../ajouterNoteFrais/{{note.idNote}}"><button class="btn" ><fa-icon [icon]="plusCircleIcon"></fa-icon></button></a></td>
-    </tr>
-  </tbody>
-</table>
+<div class ="container" >
+  <div class ="row">
+    <table  class="table table-striped" align="center">
+      <thead >
+        <tr >
+          <th width="150" align="center">Date de début</th>
+          <th width="150" align="center">Date de fin</th>
+          <th width="100" align="center">Nature</th>
+          <th width="100" align="center">Départ</th>
+          <th width="100" align="center">Arrivée</th>
+          <th width="100" align="center">Transport</th>
+          <th width="100" align="center">Frais</th>
+          <th width="100" align="center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor = "let note of notefrais">
+          <td >{{note.dateDebut}}</td>
+          <td>{{note.dateFin}}</td>
+          <td>{{note.nature}}</td>
+          <td>{{note.depart}}</td>
+          <td>{{note.arrivee}}</td>
+          <td>{{note.transport}}</td>
+          <td>{{note.fraisEuros}}€</td>
+          <td><a routerLink = "../ajouterNoteFrais/{{note.idNote}}"><button class="btn" ><fa-icon [icon]="plusCircleIcon"></fa-icon></button></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 

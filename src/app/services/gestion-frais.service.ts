@@ -24,7 +24,7 @@ export class GestionFraisService {
    */
 
   requestGetNoteFrais(): Observable<NoteDeFrais[]> {
-     return this.http.get<NoteDeFrais[]>(`${environment.baseUrl}note/UUID=1`);
+     return this.http.get<NoteDeFrais[]>(`${environment.baseUrl}note`);
   }
 
 
