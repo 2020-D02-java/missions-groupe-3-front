@@ -24,12 +24,13 @@ export class AjouterFraisComponent implements OnInit {
   idNote: string;
   ligneDeFrais: LigneDeFrais = new LigneDeFrais();
 
-  open(){}
+
   //valider
   ligneFraisForm: FormGroup;
   selectedLigneFrais: LigneDeFrais;
+  operation: string= 'add';
 
-  dateFormat
+  dateFormat;
   erreur_date: boolean = false;
   erreur_montant: boolean = false;
   erreur_disponnibilite: boolean = false;
@@ -40,7 +41,8 @@ export class AjouterFraisComponent implements OnInit {
   modifIcon = faPencilAlt;
   suprimeIcon = faTrashAlt;
 
-  constructor(private gestionFraisService: GestionFraisService, private root: ActivatedRoute, private modalService: NgbModal, private formB: FormBuilder) { }
+  constructor(private gestionFraisService: GestionFraisService, private root: ActivatedRoute, private modalService: NgbModal, private formB: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.idNote = this.root.snapshot.paramMap.get('id');
@@ -139,5 +141,26 @@ export class AjouterFraisComponent implements OnInit {
 }
 
 
+// config modal (!!!)
+closeResult = '';
+open(content) {
+  this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
 }
+
+private getDismissReason(reason: any): string {
+  if (reason === ModalDismissReasons.ESC) {
+    return 'by pressing ESC';
+  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    return 'by clicking on a backdrop';
+  } else {
+    return `with: ${reason}`;
+  }
+}
+}
+
+
 

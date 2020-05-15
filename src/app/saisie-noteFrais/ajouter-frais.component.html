@@ -44,7 +44,7 @@
           </tr>
         </table>
         <div class="d-flex justify-content-end">Ajouter un frais <button class="btn btn-primary btn-sm"
-            (click)="open(content)"> + </button>
+            (click)="open(content)">+</button>
         </div>
       </div>
     </div>
@@ -62,7 +62,7 @@
       <div class="form-group row">
         <label for="date" class="col-6 offset-md-2 col-md-2 col-form-label">Date </label>
           <div class="col-6 col-md-6">
-            <input id="date" type = "text" class="form-control" formControlName="date"  placeholder="  /  /    " name="dp" ngbDatepicker
+            <input id="date" type = "text" class="form-control" formControlName="date"  placeholder="  /  /    "  ngbDatepicker
                     #dp="ngbDatepicker" [(ngModel)]="ligneDeFrais.date" required/>
             <!-- <div class="d-flex justify-content-end">
               <button class="btn btn-primary calendar" (click)="dp.toggle()" type="button"></button>
@@ -95,10 +95,10 @@
     </form>
     <div class="modal-footer">
       <div class="col-6  offset-md-3 col-md-3">
-        <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Ok click')">Annuler</button>
+        <button type="button" ngbAutofocus class="btn btn-danger" >Annuler</button>
       </div>
       <div class="col-6 col-md-3">
-          <button type="button" class="btn btn-success" (click)="modal.close('Save click')">Valider</button>
+          <button type="button" class="btn btn-success" (click)="valider()">Valider</button>
       </div>
     </div>
   </div>
