@@ -1,16 +1,17 @@
+import { Router } from '@angular/router';
 import { DataNatureService } from './../services/data-nature.service';
+import { NgForm } from '@angular/forms';
 import { Nature } from './../models/Nature';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-nature-mission-modification',
-  templateUrl: './nature-mission-modification.component.html',
-  styleUrls: ['./nature-mission-modification.component.scss']
+  selector: 'app-nature-creation',
+  templateUrl: './nature-creation.component.html',
+  styleUrls: ['./nature-creation.component.scss']
 })
-export class NatureMissionModificationComponent implements OnInit {
+export class NatureCreationComponent implements OnInit {
 
-  natureSaisie = new Nature("", null, "", null, null, null, null, null, null)
+  nature = new Nature("", null, "", null, null, null, null, null, null )
   erreurPourcentage: boolean = false;
   erreurPlafondFrais: boolean = false;
   validation: boolean = false;
@@ -20,30 +21,30 @@ export class NatureMissionModificationComponent implements OnInit {
 
   @ViewChild(NgForm) myForm: NgForm
 
-
-  constructor(private dataNatureService: DataNatureService) { }
+  constructor(private dataNatureService: DataNatureService, private router : Router) { }
 
   valider() {
 
-    if (this.natureSaisie.pourcentage > 10) {
+    if (this.nature.pourcentage > 10) {
       this.erreurPourcentage = true
     } else {
       this.erreurPourcentage = false
     }
 
-    if (this.natureSaisie.plafond <= 0) {
+    if (this.nature.plafond <= 0) {
       this.erreurPlafondFrais = true
     } else {
       this.erreurPlafondFrais = false
     }
 
     if (this.erreurPourcentage == false && this.erreurPlafondFrais == false) {
-      this.dataNatureService.modifierNature(this.natureSaisie)
+      this.dataNatureService.creationNature(this.nature)
       this.validation = true
       this.myForm.resetForm()
       setTimeout(() => {
         this.validation = false
-      }, 5000);
+        this.router.navigate(['/natures-de-mission'])
+      }, 3000);
     }
 
   }
@@ -66,7 +67,6 @@ export class NatureMissionModificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
 }
