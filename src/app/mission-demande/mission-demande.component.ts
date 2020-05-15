@@ -126,7 +126,6 @@ export class MissionDemandeComponent implements OnInit {
       }
     });
     this.dataMissionService.verifierDisponibilite(this.mission.date_debut, this.mission.date_fin, this.collegue.email, -1);
-    
+
   }
 }
-  

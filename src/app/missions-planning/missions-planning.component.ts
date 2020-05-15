@@ -19,7 +19,7 @@ export class MissionsPlanningComponent implements OnInit {
   locale: string = 'fr';
   events: Evenement[] = [];
   loadCalendar: boolean = false;
-  
+
   missions: Mission[];
   collegueConnecte: Observable<Collegue>;
   collegue: Collegue;
