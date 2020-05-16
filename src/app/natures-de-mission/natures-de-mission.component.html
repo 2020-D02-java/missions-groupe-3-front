@@ -28,7 +28,7 @@
 
            <!-- SANS MODALE -->
             <a (click)="modifier(nature)" ><fa-icon [icon]="faPencilAlt"></fa-icon></a>
-            <a type="submit" href=""><fa-icon [icon]="faTrashAlt"></fa-icon></a>
+            <a><fa-icon [icon]="faTrashAlt"></fa-icon></a>
           </td>
         </tr>
       </tbody>
@@ -36,7 +36,7 @@
   </div>
   <div class="new-mission">
     <p> Ajouter une nature de mission </p>
-    <button class="btn btn-primary">Plus</button>
+    <button (click)="ajouter()"  class="btn btn-primary">Plus</button>
   </div>
 </div>
 

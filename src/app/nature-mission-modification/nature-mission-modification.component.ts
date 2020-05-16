@@ -11,9 +11,11 @@ import { NgForm } from '@angular/forms';
 })
 export class NatureMissionModificationComponent implements OnInit {
 
-  nature : Nature
+
+  nature = new Nature("", null, "", null, null, null, null, null, null)
   erreurPourcentage: boolean = false;
   erreurPlafondFrais: boolean = false;
+  erreurTjm : boolean = false
   validation: boolean = false;
 
   factureMode: boolean;
@@ -41,7 +43,14 @@ export class NatureMissionModificationComponent implements OnInit {
       this.erreurPlafondFrais = false
     }
 
-    if (this.erreurPourcentage == false && this.erreurPlafondFrais == false) {
+    console.log(this.nature.facturation)
+    console.log(this.nature.tjm)
+    if(this.nature.facturation == true && this.nature.tjm == null) {
+    this.erreurTjm = true
+    console.log(this.erreurTjm)
+    }
+
+    if (this.erreurPourcentage == false && this.erreurPlafondFrais == false && this.erreurTjm == false) {
       this.dataNatureService.modifierNature(this.nature)
       this.validation = true
       this.myForm.resetForm()
@@ -61,6 +70,11 @@ export class NatureMissionModificationComponent implements OnInit {
       this.factureMode = null
       this.factureModif = null
       this.primeMode = false
+      this.primeModif = false
+
+      this.nature.prime = false
+      this.nature.pourcentage = null
+      this.nature.tjm = null
     }
   }
 
@@ -71,19 +85,27 @@ export class NatureMissionModificationComponent implements OnInit {
     } else {
       this.primeMode = false
       this.primeModif = false
+      this.nature.pourcentage = null
     }
   }
 
   ngOnInit(): void {
     this.nature = this.dataNatureService.nature;
 
-    if (this.nature.facturation == true || this.nature.prime == true) {
-      this.primeModif = true
+    if (this.nature.facturation == true) {
       this.factureModif = true
      } else {
-      this.primeModif = false
-      this.factureModif = false
+      this.factureMode = false
      }
+
+     if (this.nature.prime == true) {
+       this.primeModif = true
+     } else {
+       this.primeMode = false
+     }
+
+
+
   }
 
 }

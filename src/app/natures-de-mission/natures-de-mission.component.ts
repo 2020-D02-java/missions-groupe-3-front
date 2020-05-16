@@ -26,6 +26,10 @@ export class NaturesDeMissionComponent implements OnInit {
     this.router.navigate(['/nature-modification'])
   }
 
+    ajouter(){
+      this.router.navigate(['/creation-nature'])
+    }
+
   // openModification(content) {
   //   this.modalService.open(content, {size: 'xl', ariaLabelledBy: 'modal-basic-title'}).result
   // }
