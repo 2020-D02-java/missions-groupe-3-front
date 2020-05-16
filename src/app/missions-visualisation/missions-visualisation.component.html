@@ -16,6 +16,7 @@
       <th width="100" align="center">Arrivée</th>
       <th width="100" align="center">Transport</th>
       <th width="100" align="center">Statut</th>
+      <th width="100" align="center">Prime</th>
       <th width="100" align="center">Actions</th>
     </tr>
   </thead>
@@ -28,6 +29,7 @@
       <td>{{mission.ville_arrive}}</td>
       <td>{{mission.transport}}</td>
       <td>{{mission.statut}}</td>
+      <td>{{mission.prime.montantEuros}}</td>
       <td>
         <a (click)="supprimer(mission)"><fa-icon [icon]="faTrashAlt"></fa-icon></a>
         <a *ngIf="mission.statut == 'INITIALE' || mission.statut == 'REJETEE'" (click)="modifier(mission)"><fa-icon [icon]="faPencilAlt"></fa-icon></a>
