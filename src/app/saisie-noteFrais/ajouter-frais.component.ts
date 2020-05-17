@@ -88,43 +88,6 @@ export class AjouterFraisComponent implements OnInit {
       }, (erreur: HttpErrorResponse) => console.log(`Erreur: ${erreur}`));
   }
 
-  // valider(maLigneFrais) {
-  //   //la date de debut doit etre entre la date de debut et fin de la mission
-  //   if (maLigneFrais.date != null && (this.notefrais.dateDebut <= maLigneFrais.date) && (this.notefrais.dateFin >= maLigneFrais.date)) {
-  //     this.erreur_date = false;
-  //   } else {
-  //     this.erreur_date = true;
-  //   }
-
-  //   //Le montant de la ligne de frais est strictement positif
-  //   if (maLigneFrais.montant > 0) {
-  //     this.erreur_montant = false;
-  //   } else {
-  //     this.erreur_montant = true;
-  //   }
-  //   //On ne peut pas saisir 2 lignes de frais identifiques (même couple date/nature)
-  //   this.gestionFraisService.disponibiliteLigneFrais.subscribe(data => {
-  //     if (data == 'true') {
-  //       this.erreur_disponnibilite = true;
-  //     } else {
-  //     this.erreur_disponnibilite = false;
-  //     }
-  //   })
-  //   this.gestionFraisService.verifierDisponibilite(maLigneFrais.date, maLigneFrais.nature);
-  //   this.gestionFraisService.enregistrerLigneFrais(maLigneFrais).subscribe();
-  // }
-
-  // creationForm(){
-  //   this.ligneFraisForm = this.formB.group({
-  //     date: ['', Validators.required],
-  //     montant: '',
-  //     type: '',
-  //   });
-  // }
-  // initLigneFrais(){
-  //   this.selectedLigneFrais = new LigneDeFrais();
-  //   this.creationForm();
-  //  }
 
 
   get natureLigne(): any {
