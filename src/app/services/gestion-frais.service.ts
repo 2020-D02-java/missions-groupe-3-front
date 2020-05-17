@@ -33,34 +33,34 @@ export class GestionFraisService {
    */
 
   requestGetLigneFrais(idNote: string): Observable<LigneDeFrais[]> {
-    return this.http.get<LigneDeFrais[]>(`${environment.baseUrl}ligne/UUID=${idNote}`);
+    return this.http.get<LigneDeFrais[]>(`${environment.baseUrl}ligne/id/?idNote=${idNote}`);
 
  }
 
   /**
    * Récupération d'un flux de lien d'une seul note de frais
    */
- requestGetNoteFraisById(idNote: string): Observable<NoteDeFrais[]> {
-  return this.http.get<NoteDeFrais[]>(`${environment.baseUrl}note/UUID=${idNote}`);
+ requestGetNoteFraisById(idNote: string): Observable<NoteDeFrais> {
+  return this.http.get<NoteDeFrais>(`${environment.baseUrl}note/id?idNote=${idNote}`);
 }
 
   /**
    * Récupération d'un flux de lien de prime d'une note de frais donnée
    */
-requestGetPrime(idNote: string): Observable<Prime[]> {
-  return this.http.get<Prime[]>(`${environment.baseUrl}prime/UUID=${idNote}`);
+requestGetPrime(idNote: string): Observable<Prime> {
+  return this.http.get<Prime>(`${environment.baseUrl}prime/UUID=${idNote}`);
 }
 
-enregistrerLigneFrais(ligneDeFrais: LigneDeFrais): Observable<LigneDeFrais> {
-  return this.http.post<LigneDeFrais>(`${environment.baseUrl}ligne`, ligneDeFrais);
+enregistrerLigneFrais(body: any): Observable<any> {
+  return this.http.post(`${environment.baseUrl}ligne/enregistrer`, body);
 }
 
 suprimerLigneFrais(idLigne: number): Observable<LigneDeFrais> {
-  return this.http.delete<LigneDeFrais>(`${environment.baseUrl}ligne` + '/${idLigne}');
+  return this.http.delete<LigneDeFrais>(`${environment.baseUrl}ligne/supprimer` + '/${idLigne}');
 }
 
 modifierLigneFrais(ligneDeFrais: LigneDeFrais): Observable<LigneDeFrais> {
-  return this.http.put<LigneDeFrais>(`${environment.baseUrl}ligne`, ligneDeFrais);
+  return this.http.put<LigneDeFrais>(`${environment.baseUrl}ligne/modifier`, ligneDeFrais);
 }
 
 
@@ -80,5 +80,7 @@ verifierDisponibilite(date: Date, nature: string) {
     console.log('erreur lors de la requete de recherche de disponibilite');
   });
 }
+
+
 }
 

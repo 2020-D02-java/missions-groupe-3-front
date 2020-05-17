@@ -7,9 +7,8 @@ import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { Prime } from '../models/Prime';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { AbstractControl, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as moment from 'moment';
-import { AbstractControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-
 
 @Component({
   selector: 'app-ajouter-frais',
@@ -18,17 +17,23 @@ import { AbstractControl, FormGroup, FormBuilder, Validators } from '@angular/fo
 })
 export class AjouterFraisComponent implements OnInit {
 
-  notefrais: NoteDeFrais[];
+  notefrais: NoteDeFrais;
   listLignefrais: LigneDeFrais[];
-  primeMission: Prime[];
+  primeMission: Prime;
   idNote: string;
   ligneDeFrais: LigneDeFrais = new LigneDeFrais();
 
 
   //valider
-  ligneFraisForm: FormGroup;
+  ligneFraisForm = new FormGroup({
+    date: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required),
+    montant: new FormControl('', Validators.required)
+  });
+
   selectedLigneFrais: LigneDeFrais;
-  operation: string= 'add';
+  operation: string = 'add';
+
 
   dateFormat;
   erreur_date: boolean = false;
@@ -46,44 +51,51 @@ export class AjouterFraisComponent implements OnInit {
 
   ngOnInit(): void {
     this.idNote = this.root.snapshot.paramMap.get('id');
-    this.requestGetLigneFrais();
-    this.requestPrime();
 
     this.gestionFraisService.requestGetNoteFraisById(this.idNote).subscribe
-      (dataNote => {
-        this.notefrais = dataNote;
+      (data => {
+        this.notefrais = data;
       }, (erreur: HttpErrorResponse) => console.log(`Erreur: ${erreur}`));
+
+    this.requestGetLigneFrais();
+    this.requestPrime();
   }
 
 
   // Permet de recuperer les lignes de frais d'une note de frais
   requestGetLigneFrais(): void {
     this.gestionFraisService.requestGetLigneFrais(this.idNote).subscribe(
-      data => { this.listLignefrais = data;
-                 this.listLignefrais.forEach(value => value.montantEuros = value.montant / 100); },
-      error => { console.log('Un erreur à été détecté.')},
-      () => { console.log('Le telechargement a été éffectué.')}
-      );
-      }
+      data => {
+        this.listLignefrais = data;
+        console.log(data[0].id);
+        this.listLignefrais.forEach(value => value.montantEuros = value.montant / 100);
+      },
+      error => { console.log('Un erreur à été détecté.') },
+      () => { console.log('Le telechargement des lignes a été éffectué.') }
+    );
+
+  }
 
 
   // Permet de recuperer le prime de la mission qui correspond à la note de frais choisie
   requestPrime(): void {
+
     this.gestionFraisService.requestGetPrime(this.idNote).subscribe
       (data => {
         this.primeMission = data;
-        this.primeMission.forEach(value => value.montantEuros = value.montant / 100);
+        this.primeMission.montantEuros = this.primeMission.montant / 100;
 
       }, (erreur: HttpErrorResponse) => console.log(`Erreur: ${erreur}`));
   }
 
   // valider(maLigneFrais) {
   //   //la date de debut doit etre entre la date de debut et fin de la mission
-  //   // if (maLigneFrais.date != null && (this.mission.date_debut <= maLigneFrais.date) && (this.mission.date_fin >= maLigneFrais.date)) {
-  //   //   this.erreur_date = false;
-  //   // } else {
-  //   //   this.erreur_date = true;
-  //   // }
+  //   if (maLigneFrais.date != null && (this.notefrais.dateDebut <= maLigneFrais.date) && (this.notefrais.dateFin >= maLigneFrais.date)) {
+  //     this.erreur_date = false;
+  //   } else {
+  //     this.erreur_date = true;
+  //   }
+
   //   //Le montant de la ligne de frais est strictement positif
   //   if (maLigneFrais.montant > 0) {
   //     this.erreur_montant = false;
@@ -102,28 +114,90 @@ export class AjouterFraisComponent implements OnInit {
   //   this.gestionFraisService.enregistrerLigneFrais(maLigneFrais).subscribe();
   // }
 
-  creationForm(){
-    this.ligneFraisForm = this.formB.group({
-      date: ['', Validators.required],
-      montant: '',
-      type: '',
-    });
-  }
-  initLigneFrais(){
-    this.selectedLigneFrais = new LigneDeFrais();
-    this.creationForm();
+  // creationForm(){
+  //   this.ligneFraisForm = this.formB.group({
+  //     date: ['', Validators.required],
+  //     montant: '',
+  //     type: '',
+  //   });
+  // }
+  // initLigneFrais(){
+  //   this.selectedLigneFrais = new LigneDeFrais();
+  //   this.creationForm();
+  //  }
+
+
+  get natureLigne(): any {
+    return this.ligneFraisForm.get('type');
   }
 
+  get dateligne(): any {
+    return this.ligneFraisForm.get('date');
+  }
 
   valider() {
+
+    let noErrors = true;
+    // this.idNote = this.root.snapshot.paramMap.get('id');
     const ligneSaisie = this.ligneFraisForm.value;
-    this.gestionFraisService.enregistrerLigneFrais(ligneSaisie).subscribe(
-      res => {
-        this.initLigneFrais();
-        this.requestGetLigneFrais();
-        // close.modal;
+    ligneSaisie.date = moment(this.ligneFraisForm.value.date).subtract(1, 'M').format('YYYY-MM-DD');
+    if (ligneSaisie.date != null && (this.notefrais.dateDebut <= ligneSaisie.date) && (this.notefrais.dateFin >= ligneSaisie.date)) {
+      this.erreur_date = false;
+      console.log('goood');
+    } else {
+      noErrors = false;
+      this.erreur_date = true;
+    }
+
+    const nature = this.ligneFraisForm.get('type').value;
+    console.log('nature' + nature);
+    if (nature != undefined) {
+      let dispo = 'true';
+      this.listLignefrais.forEach(element => {
+        if (element.type === ligneSaisie.type && element.date === ligneSaisie.date) {
+          dispo = 'false';
+        }
+      });
+      if (dispo === 'false') {
+        noErrors = false;
+        this.erreur_disponnibilite = true;
+      } else {
+        this.erreur_disponnibilite = false;
+
       }
-    );
+    }
+
+    const montant = this.ligneFraisForm.get('montant').value;
+    if (montant != undefined) {
+          if (montant > 0) {
+            this.erreur_montant = false;
+          } else {
+            noErrors = false;
+            this.erreur_montant = true;
+          }
+    }
+
+
+
+    if (noErrors)
+    {
+      const body = {
+        date: ligneSaisie.date  + '',
+        type: this.ligneFraisForm.get('type').value + '',
+        montant: this.ligneFraisForm.get('montant').value,
+        note_de_frais: this.idNote
+
+      };
+
+      this.gestionFraisService.enregistrerLigneFrais(body).subscribe(
+        res => {
+          error: error => console.error('There was an error!', error);
+        }
+      );
+      alert("Ligne de Frais ajoutée !");
+      location.reload();
+    }
+
   }
 
 
@@ -133,33 +207,37 @@ export class AjouterFraisComponent implements OnInit {
   chekmontant(control: AbstractControl) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (control.value >0) {
-            resolve({ emailIsTaken: true })
-        } else {resolve(null)}
+        if (control.value > 0) {
+          resolve({ emailIsTaken: true })
+        } else { resolve(null) }
       }, 2000)
     })
-}
-
-
-// config modal (!!!)
-closeResult = '';
-open(content) {
-  this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-    this.closeResult = `Closed with: ${result}`;
-  }, (reason) => {
-    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  });
-}
-
-private getDismissReason(reason: any): string {
-  if (reason === ModalDismissReasons.ESC) {
-    return 'by pressing ESC';
-  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-    return 'by clicking on a backdrop';
-  } else {
-    return `with: ${reason}`;
   }
-}
+
+
+  // config modal (!!!)
+  closeResult = '';
+  open(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      this.valider();
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  // fin modal
+
+
 }
 
 

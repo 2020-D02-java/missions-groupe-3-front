@@ -1,5 +1,5 @@
 <h3 align="center">Saisie des notes de frais</h3>
-<div class="container" *ngFor="let note of notefrais ;  let i = index">
+<div class="container" *ngIf="primeMission">
   <div class="form-row">
     <div class="form-group col-md-3">
       <div>Nature </div>
@@ -7,9 +7,9 @@
       <div>Date de fin</div>
     </div>
     <div class="form-group col-md-3">
-      <div>{{note.nature}}</div>
-      <div>{{note.dateDebut}}</div>
-      <div>{{note.dateFin}}</div>
+      <div>{{notefrais.nature}}</div>
+      <div>{{notefrais.dateDebut}}</div>
+      <div>{{notefrais.dateFin}}</div>
     </div>
     <div class="form-group col-md-3">
       <div>Prime estimé</div>
@@ -17,9 +17,9 @@
       <div>Arrivée</div>
     </div>
     <div class="form-group col-md-3">
-      <div>{{primeMission[i].montantEuros}}€</div>
-      <div>{{note.depart}}</div>
-      <div>{{note.arrivee}}</div>
+      <div>{{primeMission.montantEuros}}€</div>
+      <div>{{notefrais.depart}}</div>
+      <div>{{notefrais.arrivee}}</div>
     </div>
     <div>
       <div>
@@ -60,45 +60,47 @@
   <div class="modal-body">
     <form [formGroup]= "ligneFraisForm">
       <div class="form-group row">
-        <label for="date" class="col-6 offset-md-2 col-md-2 col-form-label">Date </label>
+        <label class="col-6 offset-md-2 col-md-2 col-form-label">Date </label>
           <div class="col-6 col-md-6">
-            <input id="date" type = "text" class="form-control" formControlName="date"  placeholder="  /  /    "  ngbDatepicker
-                    #dp="ngbDatepicker" [(ngModel)]="ligneDeFrais.date" required/>
-            <!-- <div class="d-flex justify-content-end">
-              <button class="btn btn-primary calendar" (click)="dp.toggle()" type="button"></button>
-            </div> -->
-          </div>
-            <!-- <small style ="color:red" class="offset-md-3 col-md-7" *ngIf="erreur_date">la date d'un nouveau ligne de frais
-                  doit etre comprise entre la date de debut et de fin de la mission</small> -->
-      </div>
-      <div class ="alert alert-danger" *ngIf="ligneFraisForm.controls['date'].invalid && (ligneFraisForm.controls['date'].touched || ligneFraisForm.controls['date'].dirty)"> La date est obligatoire !!
+            <input name="dateLigne" type = "text" class="form-control" formControlName="date"  placeholder="  /  /    "  ngbDatepicker #d="ngbDatepicker"  required/>
+            <!-- <button (click)="d.toggle()">Toggle</button> -->
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary calendar"  (click)="d.toggle()"  type="button"></button>
+            </div>
+            <label *ngIf="dateligne.invalid" [ngClass] = "'error'" > La date est requise. </label>
 
-      </div>
-      <div class="form-group row">
-        <label for="nature" class="col-6 offset-md-2 col-md-2 col-form-label">Nature </label>
-          <div class="col-6 col-md-6">
-            <input id="nature" type = "text" formControlName="type" class="form-control" placeholder="Choix de nature de ligne"
-                    [(ngModel)]="ligneDeFrais.type" required>
           </div>
-            <small class="offset-md-3 col-md-7" *ngIf="erreur_disponnibilite">Attention ligne de frais deja
-                  existant!! (même couple date/nature)</small>
+            <small style ="color:red" class="offset-md-3 col-md-7" *ngIf="erreur_date">la date d'un nouveau ligne de frais
+                  doit etre comprise entre la date de debut et de fin de la mission</small>
+      </div>
+      <!-- <div class ="alert alert-danger" *ngIf="ligneFraisForm.get('date').invalid && (ligneFraisForm.get('date').touched || ligneFraisForm.get('date').dirty)"> La date est obligatoire !!
+
+      </div> -->
+      <div class="form-group row">
+        <label  class="col-6 offset-md-2 col-md-2 col-form-label">Nature </label>
+          <div class="col-6 col-md-6">
+            <input name="typeLigne" type = "text" formControlName="type" class="form-control" placeholder="Choix de nature de ligne"
+                    [(ngModel)]="ligneDeFrais.type" required>
+                    <label *ngIf="natureLigne.invalid" [ngClass] = "'error'" > La nature est requise. </label>
+          </div>
+            <small style ="color:red" class="offset-md-3 col-md-7" *ngIf="erreur_disponnibilite">Ligne de frais existante!! <br>(même couple date/nature)</small>
       </div>
       <div class="form-group row">
-        <label for="montant" class="col-6 offset-md-2 col-md-2 col-form-label">Montant(€) </label>
+        <label  class="col-6 offset-md-2 col-md-2 col-form-label">Montant(€) </label>
           <div class="col-6 col-md-6" >
-            <input id="montant" type = "text" class="form-control" formControlName="montant" placeholder="montant"
+            <input name="montantLigne" type = "text" class="form-control" formControlName="montant" placeholder="montant"
                     [(ngModel)]="ligneDeFrais.montant" required>
           </div>
-            <small class="offset-md-3 col-md-7" *ngIf="erreur_montant">Le montant de la ligne de frais doit etre
+            <small  style ="color:red" class="offset-md-3 col-md-7" *ngIf="erreur_montant">Le montant de la ligne de frais doit etre
                   strictement positif</small>
        </div>
     </form>
     <div class="modal-footer">
       <div class="col-6  offset-md-3 col-md-3">
-        <button type="button" ngbAutofocus class="btn btn-danger" >Annuler</button>
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.dismiss('Cross click')">Annuler</button>
       </div>
       <div class="col-6 col-md-3">
-          <button type="button" class="btn btn-success" (click)="valider()">Valider</button>
+          <button type="submit" class="btn btn-success" (click)="valider()">Valider</button>
       </div>
     </div>
   </div>
