@@ -67,7 +67,7 @@ export class AjouterFraisComponent implements OnInit {
     this.gestionFraisService.requestGetLigneFrais(this.idNote).subscribe(
       data => {
         this.listLignefrais = data;
-        console.log(data[0].id);
+        // console.log(data[0].id);
         this.listLignefrais.forEach(value => value.montantEuros = value.montant / 100);
       },
       error => { console.log('Un erreur à été détecté.') },
@@ -167,15 +167,7 @@ export class AjouterFraisComponent implements OnInit {
 
 
 
-  chekmontant(control: AbstractControl) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (control.value > 0) {
-          resolve({ emailIsTaken: true })
-        } else { resolve(null) }
-      }, 2000)
-    })
-  }
+
 
 
   // config modal (!!!)

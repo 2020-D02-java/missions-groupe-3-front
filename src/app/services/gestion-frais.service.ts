@@ -55,13 +55,13 @@ enregistrerLigneFrais(body: any): Observable<any> {
   return this.http.post(`${environment.baseUrl}ligne/enregistrer`, body);
 }
 
-suprimerLigneFrais(idLigne: number): Observable<LigneDeFrais> {
-  return this.http.delete<LigneDeFrais>(`${environment.baseUrl}ligne/supprimer` + '/${idLigne}');
-}
+// suprimerLigneFrais(idLigne: number): Observable<LigneDeFrais> {
+//   return this.http.delete<LigneDeFrais>(`${environment.baseUrl}ligne/supprimer` + '/${idLigne}');
+// }
 
-modifierLigneFrais(ligneDeFrais: LigneDeFrais): Observable<LigneDeFrais> {
-  return this.http.put<LigneDeFrais>(`${environment.baseUrl}ligne/modifier`, ligneDeFrais);
-}
+// modifierLigneFrais(ligneDeFrais: LigneDeFrais): Observable<LigneDeFrais> {
+//   return this.http.put<LigneDeFrais>(`${environment.baseUrl}ligne/modifier`, ligneDeFrais);
+// }
 
 
 verifierDisponibilite(date: Date, nature: string) {
