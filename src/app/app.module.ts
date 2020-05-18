@@ -28,7 +28,7 @@ import { MissionsModificationComponent } from './missions-modification/missions-
 import { MissionsManagerComponent } from './missions-manager/missions-manager.component';
 import { MissionsPlanningComponent } from './missions-planning/missions-planning.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, DatePipe } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { PrimesComponent } from './primes/primes.component';
 import { GoogleChartsModule } from 'angular-google-charts';
@@ -74,7 +74,7 @@ import { NatureMissionModificationComponent } from './nature-mission-modificatio
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,
     multi: true
-  }, GestionFraisService],
+  }, GestionFraisService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

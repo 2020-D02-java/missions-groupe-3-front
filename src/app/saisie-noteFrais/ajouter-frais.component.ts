@@ -7,7 +7,8 @@ import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { Prime } from '../models/Prime';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { AbstractControl, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 
 @Component({
@@ -21,24 +22,32 @@ export class AjouterFraisComponent implements OnInit {
   listLignefrais: LigneDeFrais[];
   primeMission: Prime;
   idNote: string;
+  idLigne: number;
   ligneDeFrais: LigneDeFrais = new LigneDeFrais();
 
+  erreur_date: boolean = false;
+  erreur_montant: boolean = false;
+  erreur_disponnibilite: boolean = false;
 
-  //valider
+
+  erreur_date_modif: boolean = false;
+  erreur_montant_modif: boolean = false;
+  erreur_disponnibilite_modif: boolean = false;
+
+  datePicked = { "year": 2000, "month": 5, "day": 7 };
+
+  //Formulaire à valider
   ligneFraisForm = new FormGroup({
     date: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
     montant: new FormControl('', Validators.required)
   });
 
-  selectedLigneFrais: LigneDeFrais;
-  operation: string = 'add';
-
-
-  dateFormat;
-  erreur_date: boolean = false;
-  erreur_montant: boolean = false;
-  erreur_disponnibilite: boolean = false;
+  ligneFraisModForm = new FormGroup({
+    dateModif: new FormControl('', Validators.required),
+    typeModif: new FormControl('', Validators.required),
+    montantModif: new FormControl('', Validators.required)
+  });
 
 
 
@@ -46,16 +55,15 @@ export class AjouterFraisComponent implements OnInit {
   modifIcon = faPencilAlt;
   suprimeIcon = faTrashAlt;
 
-  constructor(private gestionFraisService: GestionFraisService, private root: ActivatedRoute, private modalService: NgbModal, private formB: FormBuilder) {
+  constructor(private gestionFraisService: GestionFraisService, private root: ActivatedRoute, private modalService: NgbModal, private datePipe: DatePipe, private formB: FormBuilder) {
   }
 
   ngOnInit(): void {
-    this.idNote = this.root.snapshot.paramMap.get('id');
-
+    this.idNote = this.root.snapshot.paramMap.get('idOfNote');
+    console.log("id Of Note" + this.idNote);
     this.gestionFraisService.requestGetNoteFraisById(this.idNote).subscribe
-      (data => {
-        this.notefrais = data;
-      }, (erreur: HttpErrorResponse) => console.log(`Erreur: ${erreur}`));
+      (data => { this.notefrais = data; },
+        (erreur: HttpErrorResponse) => console.log(`Erreur: ${erreur}`));
 
     this.requestGetLigneFrais();
     this.requestPrime();
@@ -67,8 +75,10 @@ export class AjouterFraisComponent implements OnInit {
     this.gestionFraisService.requestGetLigneFrais(this.idNote).subscribe(
       data => {
         this.listLignefrais = data;
-        // console.log(data[0].id);
-        this.listLignefrais.forEach(value => value.montantEuros = value.montant / 100);
+        let i;
+        for (i = 0; i < data.length; i++) {
+          this.listLignefrais[i].montantEuros = this.listLignefrais[i].montant / 100;
+        }
       },
       error => { console.log('Un erreur à été détecté.') },
       () => { console.log('Le telechargement des lignes a été éffectué.') }
@@ -89,6 +99,7 @@ export class AjouterFraisComponent implements OnInit {
   }
 
 
+  //Récuperation des saisie de l'utilisateur pour une ligne de frais
 
   get natureLigne(): any {
     return this.ligneFraisForm.get('type');
@@ -98,15 +109,15 @@ export class AjouterFraisComponent implements OnInit {
     return this.ligneFraisForm.get('date');
   }
 
+  // M"thode d'ajout d'une ligne de frais (avec règles de metier)
   valider() {
 
     let noErrors = true;
-    // this.idNote = this.root.snapshot.paramMap.get('id');
     const ligneSaisie = this.ligneFraisForm.value;
     ligneSaisie.date = moment(this.ligneFraisForm.value.date).subtract(1, 'M').format('YYYY-MM-DD');
+
     if (ligneSaisie.date != null && (this.notefrais.dateDebut <= ligneSaisie.date) && (this.notefrais.dateFin >= ligneSaisie.date)) {
       this.erreur_date = false;
-      console.log('goood');
     } else {
       noErrors = false;
       this.erreur_date = true;
@@ -129,23 +140,18 @@ export class AjouterFraisComponent implements OnInit {
 
       }
     }
-
     const montant = this.ligneFraisForm.get('montant').value;
     if (montant != undefined) {
-          if (montant > 0) {
-            this.erreur_montant = false;
-          } else {
-            noErrors = false;
-            this.erreur_montant = true;
-          }
+      if (montant > 0) {
+        this.erreur_montant = false;
+      } else {
+        noErrors = false;
+        this.erreur_montant = true;
+      }
     }
-
-
-
-    if (noErrors)
-    {
+    if (noErrors) {
       const body = {
-        date: ligneSaisie.date  + '',
+        date: ligneSaisie.date + '',
         type: this.ligneFraisForm.get('type').value + '',
         montant: this.ligneFraisForm.get('montant').value,
         note_de_frais: this.idNote
@@ -154,23 +160,16 @@ export class AjouterFraisComponent implements OnInit {
 
       this.gestionFraisService.enregistrerLigneFrais(body).subscribe(
         res => {
-          error: error => console.error('There was an error!', error);
-        }
-      );
+          (error: any) => {
+            console.log("erreur lors de l'ajout d'une note de frais");
+          }
+        });
       alert("Ligne de Frais ajoutée !");
       location.reload();
     }
 
   }
-
-
-
-
-
-
-
-
-  // config modal (!!!)
+  // config modal modification
   closeResult = '';
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -182,6 +181,102 @@ export class AjouterFraisComponent implements OnInit {
   }
 
   private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  // fin modal
+
+
+
+  //Changement de format de date pour la modification d'une ligne de frais
+
+  fillFormModif(ligne: LigneDeFrais) {
+    this.idLigne = ligne.id;
+    const dateS = ligne.date + '';
+    this.datePicked.year = parseInt(dateS.split('-')[0], 10);
+    this.datePicked.month = parseInt(dateS.split('-')[1], 10);
+    this.datePicked.day = parseInt(dateS.split('-')[2], 10);
+    console.log("foo1111" + this.datePicked);
+    this.ligneFraisModForm.setValue({
+      dateModif: this.datePicked,
+      typeModif: ligne.type,
+      montantModif: ligne.montantEuros
+    });
+    console.log("baro" + this.ligneFraisModForm.value.dateModif);
+  }
+
+  //Récuperation des modification sur la ligne de frais
+  get dateModifLigne(): any {
+    return this.ligneFraisModForm.get('dateModif');
+  }
+
+  get natureModifLigne(): any {
+    return this.ligneFraisModForm.get('typeModif');
+  }
+
+
+  // validation (avec règles de metier) de la modification d'une ligne de frais
+  validerModif() {
+
+    let noErrors = true;
+    const ligneSaisieModif = this.ligneFraisModForm.value;
+    ligneSaisieModif.dateModif = moment(this.ligneFraisModForm.value.dateModif).subtract(1, 'M').format('YYYY-MM-DD');
+    console.log("fooo" + ligneSaisieModif.dateModif);
+    if (ligneSaisieModif.dateModif != null && (this.notefrais.dateDebut <= ligneSaisieModif.dateModif) && (this.notefrais.dateFin >= ligneSaisieModif.dateModif)) {
+      this.erreur_date_modif = false;
+    } else {
+      noErrors = false;
+      this.erreur_date_modif = true;
+    }
+
+    const montant = this.ligneFraisModForm.get('montantModif').value;
+    if (montant != undefined) {
+      if (montant > 0) {
+        this.erreur_montant_modif = false;
+      } else {
+        noErrors = false;
+        this.erreur_montant_modif = true;
+      }
+    }
+    if (noErrors) {
+      const body = {
+        date: ligneSaisieModif.dateModif + '',
+        type: this.ligneFraisModForm.get('typeModif').value + '',
+        montant: this.ligneFraisModForm.get('montantModif').value,
+        note_de_frais: this.idNote,
+        id: this.idLigne
+      };
+      console.log("bodyyyyyy" + body);
+
+      this.gestionFraisService.modifierLigneFrais(body).subscribe(
+        res => {
+          (error: any) => {
+            console.log("erreur lors de la modification de la note de frais");
+          }
+        });
+      alert("Ligne de Frais modifiée !");
+      location.reload();
+    }
+
+  }
+
+  // config modal modification
+  closeResult1 = '';
+  open1(contentModification) {
+    this.modalService.open(contentModification, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult1 = `Closed with: ${result}`;
+      this.validerModif();
+    }, (reason) => {
+    this.closeResult1 = `Dismissed ${this.getDismissReason1(reason)}`;
+    });
+  }
+
+  private getDismissReason1(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {

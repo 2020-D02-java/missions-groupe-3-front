@@ -23,7 +23,10 @@ const routes: Routes =  [
   { path: 'nature-modification', component: NatureMissionModificationComponent, canActivate: [StatutConnecteService]},
   { path: 'accueil', component: AccueilComponent, canActivate: [StatutConnecteService]},
   { path: 'noteFrais', component: GestionFraisComponent, canActivate: [StatutConnecteService]},
-  { path: 'ajouterNoteFrais/:id', component: AjouterFraisComponent, canActivate: [StatutConnecteService]},
+  { path: 'ajouterNoteFrais/:idOfNote', component: AjouterFraisComponent, canActivate: [StatutConnecteService]},
+  { path: 'modifierLigneFrais/', component: AjouterFraisComponent, canActivate: [StatutConnecteService]},
+
+
   { path: 'mission_demande', component: MissionDemandeComponent, canActivate: [StatutConnecteService]},
   { path: 'missions_visualisation', component: MissionsVisualisationComponent, canActivate: [StatutConnecteService]},
   { path: 'mission_modification', component: MissionsModificationComponent, canActivate: [StatutConnecteService]},

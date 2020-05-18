@@ -15,7 +15,6 @@ import { Subject } from 'rxjs';
 })
 export class GestionFraisService {
 
-  disponibiliteLigneFrais = new Subject<string>();
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +23,7 @@ export class GestionFraisService {
    */
 
   requestGetNoteFrais(): Observable<NoteDeFrais[]> {
-     return this.http.get<NoteDeFrais[]>(`${environment.baseUrl}note`);
+     return this.http.get<NoteDeFrais[]>(`${environment.baseUrl}notes`);
   }
 
 
@@ -33,7 +32,7 @@ export class GestionFraisService {
    */
 
   requestGetLigneFrais(idNote: string): Observable<LigneDeFrais[]> {
-    return this.http.get<LigneDeFrais[]>(`${environment.baseUrl}ligne/id/?idNote=${idNote}`);
+    return this.http.get<LigneDeFrais[]>(`${environment.baseUrl}ligne/id?idNote=${idNote}`);
 
  }
 
@@ -41,46 +40,31 @@ export class GestionFraisService {
    * Récupération d'un flux de lien d'une seul note de frais
    */
  requestGetNoteFraisById(idNote: string): Observable<NoteDeFrais> {
-  return this.http.get<NoteDeFrais>(`${environment.baseUrl}note/id?idNote=${idNote}`);
+  return this.http.get<NoteDeFrais>(`${environment.baseUrl}notes/id?idNote=${idNote}`);
 }
 
   /**
    * Récupération d'un flux de lien de prime d'une note de frais donnée
    */
 requestGetPrime(idNote: string): Observable<Prime> {
-  return this.http.get<Prime>(`${environment.baseUrl}prime/UUID=${idNote}`);
+  return this.http.get<Prime>(`${environment.baseUrl}prime/id?idNote=${idNote}`);
 }
 
+/**
+   * Récupération d'un flux de lien de prime d'une note de frais donnée
+   */
 enregistrerLigneFrais(body: any): Observable<any> {
   return this.http.post(`${environment.baseUrl}ligne/enregistrer`, body);
 }
 
-// suprimerLigneFrais(idLigne: number): Observable<LigneDeFrais> {
-//   return this.http.delete<LigneDeFrais>(`${environment.baseUrl}ligne/supprimer` + '/${idLigne}');
-// }
-
-// modifierLigneFrais(ligneDeFrais: LigneDeFrais): Observable<LigneDeFrais> {
-//   return this.http.put<LigneDeFrais>(`${environment.baseUrl}ligne/modifier`, ligneDeFrais);
-// }
-
-
-verifierDisponibilite(date: Date, nature: string) {
-  this.http.get(`${environment.baseUrl}ligne` + '/disponibilite?date=' + date + '&nature=' + nature).subscribe((data: string) => {
-    let chaine: string = data.valueOf().toString();
-    if (chaine == 'true'){
-      this.disponibiliteLigneFrais.next('true');
-    }else if (chaine == 'false'){
-      console.log('false')
-      this.disponibiliteLigneFrais.next('false');
-    }else if (chaine == 'erreur:404'){
-      console.log('erreur: resultat non trouvé');
-      this.disponibiliteLigneFrais.next('erreur:404');
-    }
-  }, (error: any) => {
-    console.log('erreur lors de la requete de recherche de disponibilite');
-  });
+suprimerLigneFrais(idLigne: number): Observable<any> {
+  return this.http.delete(`${environment.baseUrl}ligne/supprimer?idLigne=${idLigne}`);
 }
 
+modifierLigneFrais(body: any): Observable<any> {
+  return this.http.post(`${environment.baseUrl}ligne/modifier`, body);
+  console.log('modifiiiiiiiiii')
+}
 
 }
 
