@@ -8,10 +8,10 @@
           <label class="col-sm-2 col-form-label" for="natureMission">Nature</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="natureMission" name="nom" [(ngModel)]="nature.nom"
-              #etatNom="ngModel" required>
-            <div *ngIf="etatNom.dirty && etatNom.invalid" class="alert alert-danger" role="alert">
-              Le nom de la nature de mission est obligatoire
-            </div>
+              #etatNom="ngModel" (ngModelChange)="inputNom($event)" required>
+              <div *ngIf="erreurNom == true" class="alert alert-danger" role="alert">
+                Le nom de la nature de mission est obligatoire
+              </div>
           </div>
         </div>
       </div>
@@ -23,8 +23,8 @@
           <label class="col-sm-2 col-form-label" for="plafondFrais">Plafond de frais</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="plafondFrais" name="plafondFrais"
-              [(ngModel)]="nature.plafond" #etatPlafondFrais="ngModel" required>
-            <div *ngIf="etatPlafondFrais.dirty && erreurPlafondFrais == true" class="alert alert-danger" role="alert">
+              [(ngModel)]="nature.plafond" #etatPlafondFrais="ngModel" (ngModelChange)="inputPlafond($event)" required>
+            <div *ngIf="erreurPlafondFrais == true" class="alert alert-danger" role="alert">
               Le montant des frais prise en charge est obligatoire et le montant doit être positif
             </div>
           </div>
@@ -35,11 +35,11 @@
           <label class="col-sm-2 col-form-label" for="plafondFraisDepassable">Plafond dépassable</label>
           <div class="col-sm-10">
             <select class="form-control custom-select" id="plafondFraisDepassable" name="plafondFraisDepassable"
-              [(ngModel)]="nature.plafondDepassable" #etatplafondFraisDepassable="ngModel" required>
+              [(ngModel)]="nature.plafondDepassable" #etatplafondFraisDepassable="ngModel" (ngModelChange)="plafondDepassable($event)" required>
               <option value=true>OUI</option>
               <option value=false>NON</option>
             </select>
-            <div *ngIf="etatplafondFraisDepassable.dirty && etatplafondFraisDepassable.invalid"
+            <div *ngIf="erreurPlafondDepassable == true"
               class="alert alert-danger" role="alert">
               Le choix est est obligatoire
             </div>
@@ -59,7 +59,7 @@
               <option value=true [ngValue]=true>OUI</option>
               <option value=false [ngValue]=false>NON</option>
             </select>
-            <div *ngIf="etatFacturation.dirty && etatFacturation.invalid" class="alert alert-danger" role="alert">
+            <div *ngIf="erreurFacturation == true" class="alert alert-danger" role="alert">
               Le choix est obligatoire
             </div>
           </div>
@@ -71,8 +71,8 @@
           <label class="col-sm-2 col-form-label" for="tjm">TJM (€)</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="tjm" name="tjm" [(ngModel)]="nature.tjm"
-              #etatTjm="ngModel" required>
-            <div *ngIf="etatTjm.dirty && etatTjm.invalid" class="alert alert-danger" role="alert">
+              #etatTjm="ngModel" (ngModelChange)="inputTjm($event)" required>
+            <div *ngIf="erreurTjm == true" class="alert alert-danger" role="alert">
               La saisie d'un TJM est obligatoire
             </div>
           </div>
@@ -86,11 +86,11 @@
           <label class="col-sm-2 col-form-label" for="prime">Versement de prime</label>
           <div class="col-sm-10">
             <select class="form-control custom-select" id="prime" name="prime" (ngModelChange)="prime($event)"
-              [(ngModel)]="nature.prime" #etatPrime="ngModel" required>
+              [(ngModel)]="nature.prime" #etatPrime="ngModel"  required>
               <option value=true [ngValue]=true>OUI</option>
               <option value=false [ngValue]=false>NON</option>
             </select>
-            <div *ngIf="etatPrime.dirty && etatPrime.invalid" class="alert alert-danger" role="alert">
+            <div *ngIf="etatPrime.invalid && erreurPrime == true" class="alert alert-danger" role="alert">
               Le choix est obligatoire
             </div>
           </div>
@@ -102,9 +102,9 @@
           <label class="col-sm-2 col-form-label" for="%prime">% Prime</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="%prime" name="%prime"
-              [(ngModel)]="nature.pourcentage" #etatPrimePourcent="ngModel" required>
+              [(ngModel)]="nature.pourcentage" #etatPrimePourcent="ngModel" (ngModelChange)="inputPourcentage($event)" required>
 
-            <div *ngIf="etatPrimePourcent.dirty && erreurPourcentage == true" class="alert alert-danger" role="alert">
+            <div *ngIf="erreurPourcentage == true" class="alert alert-danger" role="alert">
               La saisie d'une prime est obligatoire et le montant doit être inférieur à 10%
             </div>
           </div>
@@ -113,11 +113,11 @@
       </div>
     </div>
     <div *ngIf="validation == true" class="alert alert-success">
-      Votre modification a bien été enregistrée
+      La nature de mission a bien été créée
     </div>
     <div class="btn-actions">
       <!-- Reset le form -->
-      <button class="btn btn-danger" (click)="etatForm.reset()">Annuler</button>
+      <button class="btn btn-danger" (click)="annuler()">Annuler</button>
       <button type="submit" class="btn btn-success" (click)="valider()">Valider</button>
     </div>
   </form>
