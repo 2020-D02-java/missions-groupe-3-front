@@ -57,7 +57,7 @@ import { NatureMissionModificationComponent } from './nature-mission-modificatio
     MissionsPlanningComponent,
     CollapseNavbarComponent,
     NatureMissionModificationComponent,
-    PrimesComponent,
+    PrimesComponent
   ],
   imports: [
     BrowserModule,
