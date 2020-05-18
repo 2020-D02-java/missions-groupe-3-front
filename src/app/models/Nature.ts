@@ -1,5 +1,6 @@
 export class Nature {
   constructor (
+    public id:number,
     public nom:string,
     public facturation:boolean,
     public tjm:string,

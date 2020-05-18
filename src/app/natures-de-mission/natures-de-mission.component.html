@@ -20,16 +20,33 @@
           <td>{{nature.tjm}}</td>
           <td>{{nature.pourcentage}}</td>
           <td class="actions">
-
-            <!-- AVEC MODALE MAIS PB INITIALISATION NATURE -->
-            <!-- <a routerLink="/natures-de-mission" (click)="openModification(content)">
-                <fa-icon [icon]="faPencilAlt"></fa-icon>
-           </a> -->
-
-           <!-- SANS MODALE -->
             <a (click)="modifier(nature)" ><fa-icon [icon]="faPencilAlt"></fa-icon></a>
-            <a><fa-icon [icon]="faTrashAlt"></fa-icon></a>
+            <!-- AVEC MODALE -->
+            <a (click)="openSuppression(content)">
+              <fa-icon [icon]="faTrashAlt"></fa-icon>
+            </a>
           </td>
+          <ng-template #content let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Confirmation de suppresion</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h6>Confirmez-vous la suppression de la nature de mission {{nature.nom}}</h6>
+              <div>
+                <div class="alert alert-success" role="alert" *ngIf="suppressionValide == true">
+                  La suppression a bien été enregistrée.
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="suppressionInvalide == true">
+                  La suppression a échouée, la mission est en cours d'utilisation.
+                </div>
+                <button class="btn btn-danger" (click)="modal.close()" >Annuler</button>
+                <button class="btn btn-success" (click)="supprimer(nature)">Valider</button>
+              </div>
+            </div>
+          </ng-template>
         </tr>
       </tbody>
     </table>
@@ -40,16 +57,5 @@
   </div>
 </div>
 
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Modification d'un nature de mission</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <app-nature-mission-modification></app-nature-mission-modification>
-  </div>
-</ng-template>
 
 
