@@ -57,13 +57,12 @@ enregistrerLigneFrais(body: any): Observable<any> {
   return this.http.post(`${environment.baseUrl}ligne/enregistrer`, body);
 }
 
-suprimerLigneFrais(idLigne: number): Observable<any> {
-  return this.http.delete(`${environment.baseUrl}ligne/supprimer?idLigne=${idLigne}`);
-}
+// suprimerLigneFrais(idLigne: number): Observable<any> {
+//   return this.http.delete(`${environment.baseUrl}ligne/supprimer?idLigne=${idLigne}`);
+// }
 
 modifierLigneFrais(body: any): Observable<any> {
   return this.http.post(`${environment.baseUrl}ligne/modifier`, body);
-  console.log('modifiiiiiiiiii')
 }
 
 }
