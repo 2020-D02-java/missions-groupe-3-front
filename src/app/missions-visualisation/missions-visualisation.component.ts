@@ -8,6 +8,7 @@ import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Nature } from '../models/NatureDto';
 import { Prime } from '../models/Prime';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-missions-visualisation',
@@ -28,7 +29,7 @@ export class MissionsVisualisationComponent implements OnInit {
   sortDateDebut = false;
   sortDateFin = false;
 
-  constructor(private authSrv: AuthService, private missionService: DataMissionService, private router: Router) { }
+  constructor(private authSrv: AuthService, private missionService: DataMissionService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.collegueConnecte = this.authSrv.collegueConnecteObs;
@@ -73,6 +74,10 @@ export class MissionsVisualisationComponent implements OnInit {
     this.missionService.chargerMissionsDateFin(this.collegue.email, this.sortDateFin);
     if (this.sortDateFin == false){this.sortDateFin = true}
     else if (this.sortDateFin == true){this.sortDateFin = false}
+  }
+
+  open(content) {
+    this.modalService.open(content);
   }
 
 }
