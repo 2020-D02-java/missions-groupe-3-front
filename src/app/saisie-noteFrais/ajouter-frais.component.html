@@ -38,7 +38,7 @@
             <td><a>
                 <button class="btn"  (click)="open1(contentModification);fillFormModif(ligne)"> <fa-icon [icon]="modifIcon" ></fa-icon></button>
               </a>
-              <a> <button class="btn" ><fa-icon [icon]="suprimeIcon"></fa-icon>
+              <a> <button class="btn" (click)="open1(contentSuppression);deleteLigne(ligne)"><fa-icon [icon]="suprimeIcon"></fa-icon>
                 </button>
               </a>
             </td>
@@ -159,6 +159,36 @@
 </ng-template>
 
 
+<ng-template #contentSuppression let-modalSup >
+  <div class="modal-header bg-info text=white">
+    <h5 class="modal-title" id="modal-basic-title">Confirmation de suppression</h5>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]= "ligneFraisForm">
+      <div class="form-group row">
+        <p class="col-12 offset-md-1 " >Confirmez-vous la suppression de frais suivant ?</p>
+      </div>
+      <div class="form-group row">
+        <p class="col-12 offset-md-1 " >Date : {{ligneDeFraisASupprimer.date}} </p>
+      </div>
+      <div class="form-group row">
+        <p class="col-12 offset-md-1 ">Nature : {{ligneDeFraisASupprimer.type}} </p>
+       </div>
+       <div class="form-group row">
+        <p  class="col-12 offset-md-1 ">Montant : {{ligneDeFraisASupprimer.montantEuros}}€ </p>
+       </div>
+    </form>
+
+    <div class="modal-footer">
+      <div class="col-6  offset-md-3 col-md-3">
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="modalSup.dismiss('Cross click')">Annuler</button>
+      </div>
+      <div class="col-6 col-md-3">
+          <button type="submit" class="btn btn-success" (click)="validerSuppression()">Valider</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
 
 

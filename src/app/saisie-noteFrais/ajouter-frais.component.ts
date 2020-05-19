@@ -24,6 +24,7 @@ export class AjouterFraisComponent implements OnInit {
   idNote: string;
   idLigne: number;
   ligneDeFrais: LigneDeFrais = new LigneDeFrais();
+  ligneDeFraisASupprimer: LigneDeFrais;
 
   erreur_date: boolean = false;
   erreur_montant: boolean = false;
@@ -79,6 +80,7 @@ export class AjouterFraisComponent implements OnInit {
         for (i = 0; i < data.length; i++) {
           this.listLignefrais[i].montantEuros = this.listLignefrais[i].montant / 100;
         }
+        // this.listLignefrais.forEach(value => this.listLignefrais.montantEuros = value.montant / 100);
       },
       error => { console.log('Un erreur à été détecté.') },
       () => { console.log('Le telechargement des lignes a été éffectué.') }
@@ -99,7 +101,6 @@ export class AjouterFraisComponent implements OnInit {
   }
 
 
-  //Récuperation des saisie de l'utilisateur pour une ligne de frais
 
   get natureLigne(): any {
     return this.ligneFraisForm.get('type');
@@ -109,7 +110,7 @@ export class AjouterFraisComponent implements OnInit {
     return this.ligneFraisForm.get('date');
   }
 
-  // M"thode d'ajout d'une ligne de frais (avec règles de metier)
+  // Règles metiers appliquées sur les chamqps de saisie d'une ligne de frais
   valider() {
 
     let noErrors = true;
@@ -191,10 +192,15 @@ export class AjouterFraisComponent implements OnInit {
   }
   // fin modal
 
+  get dateModifLigne(): any {
+    return this.ligneFraisModForm.get('dateModif');
+  }
 
+  get natureModifLigne(): any {
+    return this.ligneFraisModForm.get('typeModif');
+  }
 
   //Changement de format de date pour la modification d'une ligne de frais
-
   fillFormModif(ligne: LigneDeFrais) {
     this.idLigne = ligne.id;
     const dateS = ligne.date + '';
@@ -210,17 +216,10 @@ export class AjouterFraisComponent implements OnInit {
     console.log("baro" + this.ligneFraisModForm.value.dateModif);
   }
 
-  //Récuperation des modification sur la ligne de frais
-  get dateModifLigne(): any {
-    return this.ligneFraisModForm.get('dateModif');
-  }
-
-  get natureModifLigne(): any {
-    return this.ligneFraisModForm.get('typeModif');
-  }
 
 
-  // validation (avec règles de metier) de la modification d'une ligne de frais
+
+  // Modification d'une ligne de frais
   validerModif() {
 
     let noErrors = true;
@@ -272,7 +271,7 @@ export class AjouterFraisComponent implements OnInit {
       this.closeResult1 = `Closed with: ${result}`;
       this.validerModif();
     }, (reason) => {
-    this.closeResult1 = `Dismissed ${this.getDismissReason1(reason)}`;
+      this.closeResult1 = `Dismissed ${this.getDismissReason1(reason)}`;
     });
   }
 
@@ -286,8 +285,23 @@ export class AjouterFraisComponent implements OnInit {
     }
   }
   // fin modal
-
-
+  // Recuperation de la ligne de frais  pret à etre supprimer
+  deleteLigne(ligne: LigneDeFrais) {
+    this.idLigne = ligne.id;
+    this.ligneDeFraisASupprimer = ligne;
+    console.log("id a supprimer " + this.idLigne);
+  }
+  // Suppression d'une ligne de frais
+  validerSuppression() {
+    this.gestionFraisService.suprimerLigneFrais(this.idLigne).subscribe(
+      res => {
+        (error: any) => {
+          alert("erreur lors de la suppression de la note de frais");
+        }
+      });
+    alert("Ligne de Frais supprimée !");
+    location.reload();
+  }
 }
 
 
