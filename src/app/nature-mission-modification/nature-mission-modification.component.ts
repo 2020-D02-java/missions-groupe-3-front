@@ -13,9 +13,16 @@ export class NatureMissionModificationComponent implements OnInit {
 
 
   nature = new Nature(null, "", null, "", null, null, null, null, null, null)
+
   erreurPourcentage: boolean = false;
   erreurPlafondFrais: boolean = false;
-  erreurTjm : boolean = false
+  erreurNom: boolean = false
+  erreurPlafondDepassable: boolean = false
+  erreurFacturation: boolean = false
+  erreurPrime: boolean = false
+  erreurTjm: boolean = false
+
+
   validation: boolean = false;
 
   factureMode: boolean;
@@ -31,26 +38,66 @@ export class NatureMissionModificationComponent implements OnInit {
 
   valider() {
 
+    if (this.nature.prime == true && this.nature.pourcentage == null) {
+      this.erreurPourcentage = true
+    } else {
+      this.erreurPourcentage = false
+    }
+
     if (this.nature.pourcentage > 10) {
       this.erreurPourcentage = true
     } else {
       this.erreurPourcentage = false
     }
 
-    if (this.nature.plafond <= 0) {
+    if (this.nature.plafond <= 0 || this.nature.plafond == null) {
       this.erreurPlafondFrais = true
     } else {
       this.erreurPlafondFrais = false
     }
 
-    console.log(this.nature.facturation)
-    console.log(this.nature.tjm)
-    if(this.nature.facturation == true && this.nature.tjm == null) {
-    this.erreurTjm = true
-    console.log(this.erreurTjm)
+    if (this.nature.plafond <= 0 || this.nature.plafond == null) {
+      this.erreurPlafondFrais = true
+    } else {
+      this.erreurPlafondFrais = false
     }
 
-    if (this.erreurPourcentage == false && this.erreurPlafondFrais == false && this.erreurTjm == false) {
+    if (this.nature.plafond_depassable == null) {
+      this.erreurPlafondDepassable = true
+    } else {
+      this.erreurPlafondDepassable = false
+    }
+
+    if (this.nature.nom == "") {
+      this.erreurNom = true
+    } else {
+      this.erreurNom = false
+    }
+
+    if (this.nature.facturation == null) {
+      this.erreurFacturation = true
+    } else {
+      this.erreurFacturation = false
+    }
+    if (this.nature.facturation == true && this.nature.tjm == "") {
+      this.erreurTjm = true
+    } else {
+      this.erreurTjm = false
+    }
+
+    if (this.nature.prime == null) {
+      this.erreurPrime = true
+    } else {
+      this.erreurPrime = false
+    }
+
+    if (this.erreurPourcentage == false
+      && this.erreurPlafondFrais == false
+      && this.erreurTjm == false
+      && this.erreurNom == false
+      && this.erreurFacturation == false
+      && this.erreurPlafondDepassable == false
+      && this.erreurPrime == false) {
       this.dataNatureService.modifierNature(this.nature)
       this.validation = true
       this.myForm.resetForm()
@@ -59,11 +106,40 @@ export class NatureMissionModificationComponent implements OnInit {
         this.router.navigate(['/natures-de-mission'])
       }, 3000);
     }
+  }
 
+  inputNom($event){
+    if ($event != "") {
+      this.erreurNom = false
+    }
+  }
+  inputTjm($event){
+    if ($event != "") {
+      this.erreurTjm = false
+    }
+  }
+  inputPourcentage($event){
+    if ($event != null) {
+      this.erreurPourcentage = false
+    } else if ($event > 10) {
+      this.erreurPourcentage = true
+    }
+  }
+  inputPlafond($event){
+    if ($event != null) {
+      this.erreurPlafondFrais = false
+    }
+  }
+
+  plafondDepassable($event) {
+    if ($event != null) {
+      this.erreurPlafondDepassable = false
+    }
   }
 
   facturation(value) {
     if (value == true) {
+      this.erreurFacturation = false
       this.factureMode = true
       this.factureModif = true
     } else {
@@ -87,6 +163,17 @@ export class NatureMissionModificationComponent implements OnInit {
       this.primeModif = false
       this.nature.pourcentage = null
     }
+  }
+
+  annuler(){
+    this.myForm.reset()
+    this.erreurPourcentage = false;
+    this.erreurPlafondFrais = false;
+    this.erreurNom = false
+    this.erreurPlafondDepassable = false
+    this.erreurFacturation = false
+    this.erreurPrime = false
+    this.erreurTjm = false
   }
 
   ngOnInit(): void {
