@@ -12,7 +12,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class NatureCreationComponent implements OnInit {
 
-  nature = new Nature("", null, "", null, null, null, null, null, null)
+  nature = new Nature(null, "", null, "", null, null, null, null, null, null)
   validation: boolean = false;
 
   erreurPourcentage: boolean = false;
