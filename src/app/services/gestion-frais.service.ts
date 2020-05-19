@@ -5,6 +5,7 @@ import { NoteDeFrais } from '../models/NoteDeFrais';
 import { Observable } from 'rxjs/internal/Observable';
 import { LigneDeFrais } from '../models/LigneDeFrais';
 import { Prime } from '../models/Prime';
+import { Subject } from 'rxjs';
 
 /**
  * Service donnant accès aux informations techniques
@@ -14,6 +15,7 @@ import { Prime } from '../models/Prime';
 })
 export class GestionFraisService {
 
+
   constructor(private http: HttpClient) { }
 
   /**
@@ -21,7 +23,7 @@ export class GestionFraisService {
    */
 
   requestGetNoteFrais(): Observable<NoteDeFrais[]> {
-     return this.http.get<NoteDeFrais[]>(`${environment.baseUrl}note`);
+     return this.http.get<NoteDeFrais[]>(`${environment.baseUrl}notes`);
   }
 
 
@@ -30,22 +32,39 @@ export class GestionFraisService {
    */
 
   requestGetLigneFrais(idNote: string): Observable<LigneDeFrais[]> {
-    return this.http.get<LigneDeFrais[]>(`${environment.baseUrl}ligne/UUID=${idNote}`);
+    return this.http.get<LigneDeFrais[]>(`${environment.baseUrl}ligne/id?idNote=${idNote}`);
 
  }
 
   /**
    * Récupération d'un flux de lien d'une seul note de frais
    */
- requestGetNoteFraisById(idNote: string): Observable<NoteDeFrais[]> {
-  return this.http.get<NoteDeFrais[]>(`${environment.baseUrl}note/UUID=${idNote}`);
+ requestGetNoteFraisById(idNote: string): Observable<NoteDeFrais> {
+  return this.http.get<NoteDeFrais>(`${environment.baseUrl}notes/id?idNote=${idNote}`);
 }
 
   /**
    * Récupération d'un flux de lien de prime d'une note de frais donnée
    */
-requestGetPrime(idNote: string): Observable<Prime[]> {
-  return this.http.get<Prime[]>(`${environment.baseUrl}prime/UUID=${idNote}`);
+requestGetPrime(idNote: string): Observable<Prime> {
+  return this.http.get<Prime>(`${environment.baseUrl}prime/id?idNote=${idNote}`);
+}
+
+/**
+   * Récupération d'un flux de lien de prime d'une note de frais donnée
+   */
+enregistrerLigneFrais(body: any): Observable<any> {
+  return this.http.post(`${environment.baseUrl}ligne/enregistrer`, body);
+}
+
+suprimerLigneFrais(idLigne: number): Observable<any> {
+  return this.http.delete(`${environment.baseUrl}ligne/supprimer?idLigne=${idLigne}`);
+}
+
+modifierLigneFrais(body: any): Observable<any> {
+  return this.http.post(`${environment.baseUrl}ligne/modifier`, body);
 }
 
 }
+
+
