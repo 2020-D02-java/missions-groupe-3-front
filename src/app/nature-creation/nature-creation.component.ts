@@ -87,7 +87,6 @@ export class NatureCreationComponent implements OnInit {
       && this.erreurFacturation == false
       && this.erreurPlafondDepassable == false
       && this.erreurPrime == false) {
-        console.log(this.myForm.status)
         this.dataNatureService.creationNature(this.nature)
         this.validation = true
         this.myForm.resetForm()
@@ -131,6 +130,10 @@ export class NatureCreationComponent implements OnInit {
     } else {
       this.factureMode = false
       this.primeMode = false
+
+      this.nature.prime = false
+      this.nature.pourcentage = null
+      this.nature.tjm = null
     }
   }
 
