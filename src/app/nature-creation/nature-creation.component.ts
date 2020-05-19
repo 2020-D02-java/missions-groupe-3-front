@@ -50,7 +50,7 @@ export class NatureCreationComponent implements OnInit {
       this.erreurPlafondFrais = false
     }
 
-    if (this.nature.plafondDepassable == null) {
+    if (this.nature.plafond_depassable == null) {
       this.erreurPlafondDepassable = true
     } else {
       this.erreurPlafondDepassable = false

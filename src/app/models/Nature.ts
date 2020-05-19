@@ -7,7 +7,7 @@ export class Nature {
     public prime:boolean,
     public pourcentage:number,
     public plafond:number,
-    public plafondDepassable:boolean,
+    public plafond_depassable:boolean,
     public dateDebut:Date,
     public dateFin:Date
   ){}
