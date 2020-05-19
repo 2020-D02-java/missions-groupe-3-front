@@ -1,40 +1,56 @@
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 </head>
 <h3 align="center">Visualisation des missions</h3>
-<br/>
+<br />
 <table mdbTable class="z-depth-1" align="center">
   <thead>
-    <tr >
-      <th width="150" align="center">Date de début 
-          <a (click) = "trierDateDebut()"><i class="fas fa-arrows-alt-v"></i></a></th>
+    <tr>
+      <th width="150" align="center">Date de début
+        <a (click)="trierDateDebut()"><i class="fas fa-arrows-alt-v"></i></a></th>
       <th width="150" align="center">Date de fin
-        <a (click) = "trierDateFin()"><i class="fas fa-arrows-alt-v"></i></a>
+        <a (click)="trierDateFin()"><i class="fas fa-arrows-alt-v"></i></a>
       </th>
       <th width="100" align="center">Nature</th>
       <th width="100" align="center">Départ</th>
       <th width="100" align="center">Arrivée</th>
       <th width="100" align="center">Transport</th>
       <th width="100" align="center">Statut</th>
+      <th width="100" align="center">Prime</th>
       <th width="100" align="center">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor = "let mission of missions">
-      <td >{{mission.date_debut | date : 'dd-MM-yyyy'}}</td>
+    <tr *ngFor="let mission of missions">
+      <td>{{mission.date_debut | date : 'dd-MM-yyyy'}}</td>
       <td>{{mission.date_fin | date : 'dd-MM-yyyy'}}</td>
       <td>{{mission.nature.nom}}</td>
       <td>{{mission.ville_depart}}</td>
       <td>{{mission.ville_arrive}}</td>
       <td>{{mission.transport}}</td>
       <td>{{mission.statut}}</td>
+      <td>{{mission.prime.montantEuros}}</td>
       <td>
-        <a (click)="supprimer(mission)"><fa-icon [icon]="faTrashAlt"></fa-icon></a>
-        <a *ngIf="mission.statut == 'INITIALE' || mission.statut == 'REJETEE'" (click)="modifier(mission)"><fa-icon [icon]="faPencilAlt"></fa-icon></a>
+        <a (click)="open(deletemodal)">
+          <fa-icon [icon]="faTrashAlt"></fa-icon>
+        </a>
+        <a *ngIf="mission.statut == 'INITIALE' || mission.statut == 'REJETEE'" (click)="modifier(mission)">
+          <fa-icon [icon]="faPencilAlt"></fa-icon>
+        </a>
       </td>
+      <ng-template #deletemodal let-modal>
+        <div class="modal-body">
+          <p>Etes-vous sûr de vouloir supprimer cette mission ?</p>
+          <div class="row">
+            <button class="offset-4 col-2 mr-2 btn-danger" (click)="supprimer(mission); modal.close()">Oui</button>
+            <button class="col-2 btn-primary" (click)=" modal.close()">Non</button>
+          </div>
+        </div>
+      </ng-template>
     </tr>
   </tbody>
 </table>
-<br/>
-<br/>
-<div class="d-flex justify-content-end">Demander une mission<button class="btn btn-primary ml-2" routerLink="/mission_demande">+</button></div>
+<br />
+<br />
+<div class="d-flex justify-content-end">Demander une mission<button class="btn btn-primary ml-2"
+    routerLink="/mission_demande">+</button></div>

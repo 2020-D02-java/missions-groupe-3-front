@@ -1,3 +1,4 @@
+import { Nature } from './../models/Nature';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -10,6 +11,7 @@ import { Collegue } from '../auth/auth.domains';
 })
 export class DataMissionService {
 
+  // nature = new Nature("", null, "", null, null, null, null, null, null)
   disponibiliteMission = new Subject<string>();
   missionCree = new Subject<string>();
   missions = new Subject<Mission[]>();
@@ -20,7 +22,7 @@ export class DataMissionService {
 
   constructor(private _http: HttpClient) { }
 
-  
+
   verifierDisponibilite(debut: Date, fin: Date, email: string, missionId: number) {
     this._http.get(environment.baseUrl + "missions/disponibilite?start=" + debut + "&end=" + fin + "&email=" + email + "&exception=" + missionId).subscribe((data: string) => {
       let chaine: string = data.valueOf().toString();

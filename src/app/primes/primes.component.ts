@@ -55,10 +55,10 @@ export class PrimesComponent implements OnInit {
 
   trierDate() {
     if (this.triDate == false) {
-      this.primesService.loadPrimes(this.collegue.email, "false", new Date().getFullYear());
+      this.primesService.loadPrimes(this.collegue.email, "false", this.annee);
       this.triDate = true;
     } else {
-      this.primesService.loadPrimes(this.collegue.email, "true", new Date().getFullYear());
+      this.primesService.loadPrimes(this.collegue.email, "true", this.annee);
       this.triDate = false;
     }
   }

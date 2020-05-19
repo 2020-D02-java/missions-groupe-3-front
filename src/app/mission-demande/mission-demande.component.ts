@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Collegue } from '../auth/auth.domains';
 import { Nature } from '../models/NatureDto';
 import { NatureService } from '../services/natureDto.service';
+import { Prime } from '../models/Prime';
 
 @Component({
   selector: 'app-mission-demande',
@@ -20,7 +21,8 @@ export class MissionDemandeComponent implements OnInit {
   collegue: Collegue;
   natures: Nature[];
   natureVide: Nature = new Nature(-1,'');
-  mission: Mission = new Mission(null, null, null, null, this.natureVide, '', '', '', '', '');
+  primeVide: Prime = new Prime (-1, new Date(), new Date(), 0, 0, 0, this.natureVide);
+  mission: Mission = new Mission(null, null, null, null, this.natureVide, '', '', '', '', '', this.primeVide);
   erreur: boolean = false;
   erreur_date_debut: boolean = false;
   erreur_date_fin: boolean = false;
@@ -40,7 +42,7 @@ export class MissionDemandeComponent implements OnInit {
   }
 
   annuler(){
-    this.mission = new Mission(null, null, null, null, this.natureVide, '', '', '','', '');
+    this.mission = new Mission(null, null, null, null, this.natureVide, '', '', '','', '', this.primeVide);
     this.erreur = false;
     this.erreur_date_debut = false;
     this.erreur_date_fin = false;
@@ -115,7 +117,7 @@ export class MissionDemandeComponent implements OnInit {
             if (chaine == "cree"){
               this.validation = true;
               setTimeout(() => {this.validation = false }, 5000);
-            this.mission = new Mission(null, null, null, null, this.natureVide, '', '', '','', '');
+            this.mission = new Mission(null, null, null, null, this.natureVide, '', '', '','', '', this.primeVide);
             }else if (chaine == "erreur:404"){
               this.collegue_non_trouve = true;
             }
