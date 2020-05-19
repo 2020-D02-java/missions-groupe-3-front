@@ -1,11 +1,11 @@
-import {  OnInit } from '@angular/core';
+export class LigneDeFrais   {
 
+  id : number;
+  note_de_frais_id: number;
+  date: Date;
+  type: string;
+  montant: number;
+  montantEuros: number;
 
-export class LigneDeFrais  implements OnInit {
-
-  constructor(public date: Date, public nature: string, public montant: number, public montantEuros: number){}
-
-  ngOnInit(): void {
-  }
 
 }

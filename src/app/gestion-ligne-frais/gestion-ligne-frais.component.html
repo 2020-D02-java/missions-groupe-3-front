@@ -1,0 +1,195 @@
+<h3 align="center">Saisie des notes de frais</h3>
+<div class="container" *ngIf="primeMission">
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <div>Nature </div>
+      <div>Date de début</div>
+      <div>Date de fin</div>
+    </div>
+    <div class="form-group col-md-3">
+      <div>{{notefrais.nature}}</div>
+      <div>{{notefrais.dateDebut}}</div>
+      <div>{{notefrais.dateFin}}</div>
+    </div>
+    <div class="form-group col-md-3">
+      <div>Prime estimé</div>
+      <div>Départ</div>
+      <div>Arrivée</div>
+    </div>
+    <div class="form-group col-md-3">
+      <div>{{primeMission.montantEuros}}€</div>
+      <div>{{notefrais.depart}}</div>
+      <div>{{notefrais.arrivee}}</div>
+    </div>
+    <div>
+      <div>
+        <table class="table table-bordered-sm">
+          <tr >
+            <th width="150" align="center" scope="col">Date</th>
+            <th width="150" align="center" scope="col">Nature</th>
+            <th width="150" align="center" scope="col">Montant</th>
+            <th width="150" align="center" scope="col">Actions</th>
+          </tr>
+
+          <tr *ngFor="let ligne of listLignefrais" >
+            <td scope="row">{{ligne.date}}</td>
+            <td>{{ligne.type}}</td>
+            <td>{{ligne.montantEuros}}€</td>
+            <td><a>
+                <button class="btn"  (click)="open1(contentModification);fillFormModif(ligne)"> <fa-icon [icon]="modifIcon" ></fa-icon></button>
+              </a>
+              <a> <button class="btn" (click)="open1(contentSuppression);deleteLigne(ligne)"><fa-icon [icon]="suprimeIcon"></fa-icon>
+                </button>
+              </a>
+            </td>
+
+          </tr>
+        </table>
+        <div class="d-flex justify-content-end">Ajouter un frais <button class="btn btn-primary btn-sm"
+            (click)="open(content)">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal >
+  <div class="modal-header bg-info text=white">
+    <h5 class="modal-title" id="modal-basic-title">Ajout d'une ligne de frais</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]= "ligneFraisForm">
+      <div class="form-group row">
+        <label class="col-6 offset-md-2 col-md-2 col-form-label">Date </label>
+          <div class="col-6 col-md-6">
+            <input name="dateLigne" type = "text" class="form-control" formControlName="date"  placeholder="  /  /    "  ngbDatepicker #d="ngbDatepicker"  required/>
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-primary calendar"  (click)="d.toggle()"  type="button"></button>
+              </div>
+                <label style ="color:red" *ngIf="dateligne.invalid" [ngClass] = "'error'" > La date est requise. </label>
+          </div>
+            <small style ="color:red" class="offset-md-4 col-md-7" *ngIf="erreur_date">la date d'un nouveau ligne de frais
+                  doit etre comprise entre la date de debut et de fin de la mission</small>
+      </div>
+      <div class ="alert alert-danger" *ngIf="ligneFraisForm.get('date').invalid && (ligneFraisForm.get('date').touched || ligneFraisForm.get('date').dirty)"> La date est obligatoire !!
+
+      </div>
+      <div class="form-group row">
+        <label  class="col-6 offset-md-2 col-md-2 col-form-label">Nature </label>
+          <div class="col-6 col-md-6">
+            <input  name="typeLigne" type = "text" formControlName="type" class="form-control" placeholder="Choix de nature de ligne"
+                    [(ngModel)]="ligneDeFrais.type" required>
+                    <label style ="color:red" *ngIf="natureLigne.invalid" [ngClass] = "'error'" > La nature est requise. </label>
+          </div>
+            <small style ="color:red" class="offset-md-4 col-md-7" *ngIf="erreur_disponnibilite">Ligne de frais existante!! <br>(même couple date/nature)</small>
+      </div>
+      <div class="form-group row">
+        <label  class="col-6 offset-md-2 col-md-2 col-form-label">Montant(€) </label>
+          <div class="col-6 col-md-6" >
+            <input name="montantLigne" type = "text" class="form-control" formControlName="montant" placeholder="montant"
+                    [(ngModel)]="ligneDeFrais.montant" required>
+          </div>
+            <small  style ="color:red"  class="offset-md-4 col-md-7" *ngIf="erreur_montant">Le montant de la ligne de frais doit etre
+                  strictement positif</small>
+       </div>
+    </form>
+    <div class="modal-footer">
+      <div class="col-6  offset-md-3 col-md-3">
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.dismiss('Cross click')">Annuler</button>
+      </div>
+      <div class="col-6 col-md-3">
+          <button type="submit" class="btn btn-success" (click)="valider()">Valider</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #contentModification let-modalModif >
+  <div class="modal-header bg-info text=white">
+    <h5 class="modal-title" id="modal-basic-title">Modification d'une ligne de frais</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modalModif.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]= "ligneFraisModForm">
+      <div class="form-group row">
+        <label class="col-6 offset-md-2 col-md-2 col-form-label">Date </label>
+          <div class="col-6 col-md-6">
+            <input name="dateligneModif" type = "text" class="form-control" formControlName="dateModif"  placeholder="  /  /    "  [(ngModel)]="ligneFraisModForm.value.dateModif" ngbDatepicker #d="ngbDatepicker"    required/>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary calendar"  (click)="d.toggle()"  type="button"></button>
+            </div>
+                <label style ="color:red" *ngIf="dateModifLigne.invalid" [ngClass] = "'error'" > La date est requise. </label>
+          </div>
+            <small style ="color:red" class="offset-md-4 col-md-7" *ngIf="erreur_date_modif">la date d'un nouveau ligne de frais
+                  doit etre comprise entre la date de debut et de fin de la mission</small>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-6 offset-md-2 col-md-2 col-form-label">Nature </label>
+          <div class="col-6 col-md-6">
+            <input  name="typeLigne" type = "text" formControlName="typeModif" class="form-control" placeholder="Choix de nature de ligne"
+                    [(ngModel)]="ligneFraisModForm.value.typeModif" required>
+                    <label style ="color:red" *ngIf="natureModifLigne.invalid" [ngClass] = "'error'" > La nature est requise. </label>
+          </div>
+            <small style ="color:red" class="offset-md-4 col-md-7" *ngIf="erreur_disponnibilite_modif">Ligne de frais existante!! <br>(même couple date/nature)</small>
+      </div>
+      <div class="form-group row">
+        <label  class="col-6 offset-md-2 col-md-2 col-form-label">Montant(€) </label>
+          <div class="col-6 col-md-6" >
+            <input name="montantLigne" type = "text" class="form-control" formControlName="montantModif" placeholder="montant"
+            [(ngModel)]="ligneFraisModForm.value.montantModif" required>
+          </div>
+            <small  style ="color:red"  class="offset-md-4 col-md-7" *ngIf="erreur_montant_modif">Le montant de la ligne de frais doit etre
+                  strictement positif</small>
+       </div>
+    </form>
+    <div class="modal-footer">
+      <div class="col-6  offset-md-3 col-md-3">
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="modalModif.dismiss('Cross click')">Annuler</button>
+      </div>
+      <div class="col-6 col-md-3">
+          <button type="submit" class="btn btn-success" (click)="validerModif()">Valider</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #contentSuppression let-modalSup >
+  <div class="modal-header bg-info text=white">
+    <h5 class="modal-title" id="modal-basic-title">Confirmation de suppression</h5>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]= "ligneFraisForm">
+      <div class="form-group row">
+        <p  >Confirmez-vous la suppression de frais suivant ?</p>
+      </div>
+      <div class="form-group row">
+        <p class="col-12 offset-md-1 " >Date : {{ligneDeFraisASupprimer.date}} </p>
+      </div>
+      <div class="form-group row">
+        <p class="col-12 offset-md-1 ">Nature : {{ligneDeFraisASupprimer.type}} </p>
+       </div>
+       <div class="form-group row">
+        <p  class="col-12 offset-md-1 ">Montant : {{ligneDeFraisASupprimer.montantEuros}}€ </p>
+       </div>
+    </form>
+
+    <div class="modal-footer">
+      <div class="col-6  offset-md-3 col-md-3">
+        <button type="button" ngbAutofocus class="btn btn-danger" (click)="modalSup.dismiss('Cross click')">Annuler</button>
+      </div>
+      <div class="col-6 col-md-3">
+          <button type="submit" class="btn btn-success" (click)="validerSuppression()">Valider</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+
+

@@ -9,13 +9,15 @@ import {AuthComponent} from './auth/auth.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { GestionFraisComponent } from './gestion-frais/gestion-frais.component';
-import { AjouterFraisComponent } from './saisie-noteFrais/ajouter-frais.component';
+// import { AjouterFraisComponent } from './saisie-noteFrais/ajouter-frais.component';
 import { MissionDemandeComponent } from './mission-demande/mission-demande.component';
 import { MissionsVisualisationComponent } from './missions-visualisation/missions-visualisation.component';
 import { MissionsModificationComponent } from './missions-modification/missions-modification.component';
 import { MissionsManagerComponent } from './missions-manager/missions-manager.component';
 import { MissionsPlanningComponent } from './missions-planning/missions-planning.component';
 import { PrimesComponent } from './primes/primes.component';
+import { GestionLigneFraisComponent } from './gestion-ligne-frais/gestion-ligne-frais.component';
+import { GestionNoteFraisComponent } from './gestion-note-frais/gestion-note-frais.component';
 
 
 
@@ -27,8 +29,10 @@ const routes: Routes =  [
   { path: 'nature-modification', component: NatureMissionModificationComponent, canActivate: [StatutConnecteService]},
   { path: 'nature-creation', component: NatureCreationComponent, canActivate: [StatutConnecteService]},
   { path: 'accueil', component: AccueilComponent, canActivate: [StatutConnecteService]},
-  { path: 'noteFrais', component: GestionFraisComponent, canActivate: [StatutConnecteService]},
-  { path: 'ajouterNoteFrais/:id', component: AjouterFraisComponent, canActivate: [StatutConnecteService]},
+  { path: 'noteFrais', component: GestionNoteFraisComponent, canActivate: [StatutConnecteService]},
+  { path: 'ajouterNoteFrais/:idOfNote', component: GestionLigneFraisComponent, canActivate: [StatutConnecteService]},
+  { path: 'modifierLigneFrais/', component: GestionLigneFraisComponent, canActivate: [StatutConnecteService]},
+
   { path: 'mission_demande', component: MissionDemandeComponent, canActivate: [StatutConnecteService]},
   { path: 'missions_visualisation', component: MissionsVisualisationComponent, canActivate: [StatutConnecteService]},
   { path: 'mission_modification', component: MissionsModificationComponent, canActivate: [StatutConnecteService]},
