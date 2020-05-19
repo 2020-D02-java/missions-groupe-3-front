@@ -1,5 +1,5 @@
 <div>
-  <h3>Modification d'une nature de mission</h3>
+  <h3>Création d'une nature de mission</h3>
   <form #etatForm="ngForm" (ngSubmit)="!etatForm.form.invalid" method="POST">
     <!-- Nature -->
     <div class="row">
@@ -9,9 +9,9 @@
           <div class="col-sm-10">
             <input type="text" class="form-control" id="natureMission" name="nom" [(ngModel)]="nature.nom"
               #etatNom="ngModel" (ngModelChange)="inputNom($event)" required>
-            <div *ngIf="erreurNom == true" class="alert alert-danger" role="alert">
-              Le nom de la nature de mission est obligatoire
-            </div>
+              <div *ngIf="erreurNom == true" class="alert alert-danger" role="alert">
+                Le nom de la nature de mission est obligatoire
+              </div>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@
       </div>
       <div class="col">
         <!-- TJM -->
-        <div class="form-group row" *ngIf="factureMode == true || primeMode == true || factureModif == true">
+        <div class="form-group row" *ngIf="factureMode == true || primeMode == true">
           <label class="col-sm-2 col-form-label" for="tjm">TJM (€)</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="tjm" name="tjm" [(ngModel)]="nature.tjm"
@@ -82,11 +82,11 @@
     <div class="row">
       <div class="col">
         <!-- Prime -->
-        <div class="form-group row" *ngIf="factureMode == true || primeMode == true || factureModif == true" >
+        <div class="form-group row" *ngIf="factureMode == true || primeMode == true" >
           <label class="col-sm-2 col-form-label" for="prime">Versement de prime</label>
           <div class="col-sm-10">
             <select class="form-control custom-select" id="prime" name="prime" (ngModelChange)="prime($event)"
-              [(ngModel)]="nature.prime" #etatPrime="ngModel" required>
+              [(ngModel)]="nature.prime" #etatPrime="ngModel"  required>
               <option value=true [ngValue]=true>OUI</option>
               <option value=false [ngValue]=false>NON</option>
             </select>
@@ -98,7 +98,7 @@
       </div>
       <div class="col">
         <!-- % Prime -->
-        <div class="form-group row" *ngIf="primeMode == true || primeModif == true || factureModif == true">
+        <div class="form-group row" *ngIf="primeMode == true">
           <label class="col-sm-2 col-form-label" for="%prime">% Prime</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="%prime" name="%prime"
@@ -113,12 +113,13 @@
       </div>
     </div>
     <div *ngIf="validation == true" class="alert alert-success">
-      Votre modification a bien été enregistrée
+      La nature de mission a bien été créée
     </div>
-    <div class="button">
+    <div class="btn-actions">
       <!-- Reset le form -->
       <button class="btn btn-danger" (click)="annuler()">Annuler</button>
       <button type="submit" class="btn btn-success" (click)="valider()">Valider</button>
     </div>
   </form>
 </div>
+
