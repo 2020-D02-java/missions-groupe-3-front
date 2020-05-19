@@ -30,7 +30,7 @@ export class NaturesDeMissionComponent implements OnInit {
   }
 
     ajouter(){
-      this.router.navigate(['/creation-nature'])
+      this.router.navigate(['/nature-creation'])
     }
 
     supprimer(nature : Nature) {

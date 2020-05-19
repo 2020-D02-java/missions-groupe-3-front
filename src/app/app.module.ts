@@ -34,6 +34,7 @@ import { GoogleChartsModule } from 'angular-google-charts'
 
 registerLocaleData(localeFr);
 import { NatureMissionModificationComponent } from './nature-mission-modification/nature-mission-modification.component';
+import { NatureCreationComponent } from './nature-creation/nature-creation.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { NatureMissionModificationComponent } from './nature-mission-modificatio
     MissionsPlanningComponent,
     CollapseNavbarComponent,
     NatureMissionModificationComponent,
-    PrimesComponent
+    PrimesComponent,
+    NatureCreationComponent
   ],
   imports: [
     BrowserModule,
