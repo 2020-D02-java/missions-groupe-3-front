@@ -13,14 +13,24 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor= "let nature of natures">
+        <tr *ngFor="let nature of natures">
           <th scope="row">{{nature.nom}}</th>
-          <td>{{nature.facturation}}</td>
-          <td>{{nature.prime}}</td>
-          <td>{{nature.tjm}}</td>
+          <td>
+            <fa-icon *ngIf="nature.facturation == true" [icon]="faCheck"></fa-icon>
+            <fa-icon *ngIf="nature.facturation == false" [icon]="faTimes"></fa-icon>
+          </td>
+          <td>
+            <fa-icon *ngIf="nature.prime == true" [icon]="faCheck"></fa-icon>
+            <fa-icon *ngIf="nature.prime == false" [icon]="faTimes"></fa-icon>
+          </td>
+          <td>{{nature.tjm}}
+            <span *ngIf="nature.tjm == null" > - </span>
+          </td>
           <td>{{nature.pourcentage}}</td>
           <td class="actions">
-            <a (click)="modifier(nature)" ><fa-icon [icon]="faPencilAlt"></fa-icon></a>
+            <a (click)="modifier(nature)">
+              <fa-icon [icon]="faPencilAlt"></fa-icon>
+            </a>
             <!-- AVEC MODALE -->
             <a (click)="openSuppression(content)">
               <fa-icon [icon]="faTrashAlt"></fa-icon>
@@ -42,7 +52,7 @@
                 <div class="alert alert-danger" role="alert" *ngIf="suppressionInvalide == true">
                   La suppression a échouée, la mission est en cours d'utilisation.
                 </div>
-                <button class="btn btn-danger" (click)="modal.close()" >Annuler</button>
+                <button class="btn btn-danger" (click)="modal.close()">Annuler</button>
                 <button class="btn btn-success" (click)="supprimer(nature)">Valider</button>
               </div>
             </div>
@@ -53,9 +63,6 @@
   </div>
   <div class="new-mission">
     <p> Ajouter une nature de mission </p>
-    <button (click)="ajouter()"  class="btn btn-primary">Plus</button>
+    <button (click)="ajouter()" class="btn btn-primary">Plus</button>
   </div>
 </div>
-
-
-

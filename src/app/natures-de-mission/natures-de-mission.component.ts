@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Nature } from './../models/Nature';
 import { DataNatureService } from './../services/data-nature.service';
 import { Component, OnInit } from '@angular/core';
-import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrashAlt, faTimes, faCheck, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { ResourceLoader } from '@angular/compiler';
 
@@ -15,10 +15,12 @@ export class NaturesDeMissionComponent implements OnInit {
   //Icônes
   faPencilAlt = faPencilAlt
   faTrashAlt = faTrashAlt
+  faCheck = faCheck
+  faTimes = faTimes
 
   natures : Nature[]
- suppressionValide:boolean = false
- suppressionInvalide: boolean = false
+  suppressionValide:boolean = false
+  suppressionInvalide: boolean = false
 
  closeResult = '';
 
@@ -52,21 +54,6 @@ export class NaturesDeMissionComponent implements OnInit {
         this.suppressionValide = false
     });
       }
-
-      // private getDismissReason(reason: any): string {
-      //   if (reason === ModalDismissReasons.ESC) {
-      //     return 'by pressing ESC';
-      //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      //     return 'by clicking on a backdrop';
-      //   } else {
-      //     return `with: ${reason}`;
-      //   }
-      // }
-
-
-
-
-
 
   ngOnInit(): void {
     this.natureService.abonnementNatures()
